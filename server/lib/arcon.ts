@@ -1,4 +1,4 @@
-import { fail } from "@agent-native/core/action";
+import { fail, withoutWriteObservation } from "@agent-native/core/action";
 import { resolveSecretDetailed } from "@agent-native/core/server";
 
 // Every call Studio makes to Arcon goes through here: the person's own token, Arcon's answer mapped to a failure
@@ -29,20 +29,26 @@ const MESSAGE: Partial<Record<ArconError, string>> = {
   arcon_unavailable: "Arcon didn't answer just now. Try again in a moment.",
 };
 
-export async function arcon<T>(path: string, init: { method?: "GET" | "POST"; body?: unknown } = {}): Promise<T> {
+/**
+ * `read: true` marks a POST that changes nothing in Arcon (a preview), so a failed call reads as "nothing saved" and the
+ * agent may correct it and try again.
+ */
+export async function arcon<T>(path: string, init: { method?: "GET" | "POST"; body?: unknown; read?: boolean } = {}): Promise<T> {
   const secret = await resolveSecretDetailed("ARCON_STUDIO_TOKEN");
   if (secret.lookupFailed) fail(MESSAGE.connection_unavailable!, { errorCode: "connection_unavailable", statusCode: 503 });
   // A connection acts as one Arcon person, so only that person's own key counts: a key shared with a whole
   // workspace would let everyone in it act as whoever pasted it.
   if (!secret.value || secret.source !== "user") fail(MESSAGE.not_connected!, { errorCode: "not_connected", statusCode: 401 });
+  const token = secret.value.trim();
   let res: Response;
   try {
-    res = await fetch(`${ARCON_URL}/api/studio${path}`, {
+    const send = () => fetch(`${ARCON_URL}/api/studio${path}`, {
       method: init.method ?? "GET",
-      headers: { authorization: `Bearer ${secret.value.trim()}`, ...(init.body === undefined ? {} : { "content-type": "application/json" }) },
+      headers: { authorization: `Bearer ${token}`, ...(init.body === undefined ? {} : { "content-type": "application/json" }) },
       body: init.body === undefined ? null : JSON.stringify(init.body),
       signal: AbortSignal.timeout(30_000),
     });
+    res = await (init.read ? withoutWriteObservation(() => send()) : send());
   } catch {
     fail(MESSAGE.arcon_unavailable!, { errorCode: "arcon_unavailable", statusCode: 502 });
   }

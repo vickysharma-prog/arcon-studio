@@ -21,7 +21,7 @@ export default defineAction({
     const owner = ownerOf(ctx);
     const path = `/projects/${encodeURIComponent(id)}`;
     const design = await arcon<Design>(path);
-    const preview = await arcon<z.infer<typeof Preview>>(`${path}/preview`, { method: "POST", body: { change } });
+    const preview = await arcon<z.infer<typeof Preview>>(`${path}/preview`, { method: "POST", body: { change }, read: true });
     const proposal = await record({
       id: randomUUID(),
       ownerEmail: owner,
