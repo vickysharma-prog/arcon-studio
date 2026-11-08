@@ -27,7 +27,11 @@ export function areaText(m2: number, units: "imperial" | "metric"): string {
 
 export type Diff = { added: Set<string>; removed: Set<string>; changed: Set<string> };
 
-/** What a proposal does to the plan, room by room: new rooms, rooms gone, and rooms that moved, grew or were renamed. */
+/**
+ * What a proposal does to the plan, room by room: new rooms, rooms gone, and rooms that grew, shrank, were renamed or
+ * opened up. Arcon reflows the plan around a change, so a room that only shifted is not counted, nor a size change
+ * under 3% (rounding as the plan settles).
+ */
 export function diffPlan(before: Space[], after: Space[]): Diff {
   const was = new Map(before.map((s) => [s.id, s]));
   const now = new Map(after.map((s) => [s.id, s]));
@@ -38,8 +42,8 @@ export function diffPlan(before: Space[], after: Space[]): Diff {
       .filter((s) => {
         const b = was.get(s.id);
         if (!b) return false;
-        const moved = (["x", "y", "w", "h"] as const).some((k) => Math.abs(b.rect[k] - s.rect[k]) > 0.05);
-        return moved || b.name !== s.name || b.open !== s.open;
+        const resized = Math.abs(s.area - b.area) > Math.max(0.3, b.area * 0.03);
+        return resized || b.name !== s.name || (b.open !== false) !== (s.open !== false);
       })
       .map((s) => s.id),
   );
@@ -71,4 +75,12 @@ export function ago(iso: string, now = Date.now()): string {
   const h = Math.round(m / 60);
   if (h < 24) return `${h} h ago`;
   return new Date(t).toLocaleDateString("en-US", { day: "numeric", month: "short" });
+}
+
+/** The drawing area: the shell, or more if a proposal grows the plan past it. */
+export function extentOf(spaces: Space[], shell: { width: number; depth: number }): { width: number; depth: number } {
+  return spaces.reduce(
+    (e, s) => ({ width: Math.max(e.width, s.rect.x + s.rect.w), depth: Math.max(e.depth, s.rect.y + s.rect.h) }),
+    { width: shell.width, depth: shell.depth },
+  );
 }

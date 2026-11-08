@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-import { areaText, type Diff, type Space } from "@/lib/plan";
+import { areaText, extentOf, type Diff, type Space } from "@/lib/plan";
 import { cn } from "@/lib/utils";
 
 // One floor of an Arcon plan, drawn from the layout itself (metres), so Studio and Arcon never disagree about it.
@@ -40,8 +40,9 @@ export function PlanView({
   const titleId = useId();
   const here = spaces.filter((s) => s.floor === floor);
   const gone = ghosts.filter((s) => s.floor === floor && diff?.removed.has(s.id));
-  const w = shell.width + PAD * 2;
-  const h = shell.depth + PAD * 2;
+  const outline = extentOf(here, shell);
+  const w = outline.width + PAD * 2;
+  const h = outline.depth + PAD * 2;
 
   return (
     <svg
@@ -54,8 +55,8 @@ export function PlanView({
       <rect
         x={0}
         y={0}
-        width={shell.width}
-        height={shell.depth}
+        width={outline.width}
+        height={outline.depth}
         className="fill-card stroke-foreground"
         strokeWidth={0.12}
       />

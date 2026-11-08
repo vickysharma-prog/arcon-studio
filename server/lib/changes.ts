@@ -1,4 +1,4 @@
-import { and, desc, eq, lt, sql } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { getDb } from "../db/index.js";
 import { changes } from "../db/schema.js";
 import type { Change, ChangeRow } from "./shapes.js";
@@ -46,10 +46,13 @@ export async function move(ownerEmail: string, id: string, from: ChangeRow["stat
   return r ? toRow(r) : null;
 }
 
-/** Once the design moves to `version`, every proposal worked out on an earlier one can no longer apply. */
-export async function staleBefore(ownerEmail: string, projectId: string, version: number): Promise<void> {
+/**
+ * Once the design changes, every proposal still waiting was worked out on a design that is gone. An undo brings an old
+ * version number back, so a number alone can't tell a proposal is current: all of them go out of date.
+ */
+export async function stalePending(ownerEmail: string, projectId: string): Promise<void> {
   await getDb()
     .update(changes)
     .set({ status: "stale", updatedAt: sql`now()` })
-    .where(and(eq(changes.ownerEmail, ownerEmail), eq(changes.projectId, projectId), eq(changes.status, "pending"), lt(changes.baseVersion, version)));
+    .where(and(eq(changes.ownerEmail, ownerEmail), eq(changes.projectId, projectId), eq(changes.status, "pending")));
 }

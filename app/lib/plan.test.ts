@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ago, areaText, diffPlan, floorsOf, type Space } from "./plan";
+import { ago, areaText, diffPlan, extentOf, floorsOf, type Space } from "./plan";
 
 const room = (id: string, x: number, w: number, extra: Partial<Space> = {}): Space => ({ id, name: id, kind: "bedroom", floor: 0, area: w * 3, rect: { x, y: 0, w, h: 3 }, zone: "private", ...extra });
 
@@ -17,6 +17,21 @@ describe("diffPlan", () => {
     const after = [room("a", 0.01, 3, { name: "Den" }), room("k", 3, 3, { open: true })];
     expect([...diffPlan(before, after).changed].sort()).toEqual(["a", "k"]);
     expect(diffPlan(before, before).changed.size).toBe(0);
+  });
+  it("ignores rooms that only shifted as the plan reflowed", () => {
+    const before = [room("a", 0, 3), room("b", 3, 3)];
+    const after = [room("a", 0, 4), room("b", 4, 3)];
+    expect([...diffPlan(before, after).changed]).toEqual(["a"]);
+  });
+  it("treats a missing open flag as open", () => {
+    expect(diffPlan([room("k", 0, 3)], [room("k", 0, 3, { open: true })]).changed.size).toBe(0);
+  });
+});
+
+describe("extentOf", () => {
+  it("grows past the shell when a proposal does", () => {
+    expect(extentOf([room("a", 0, 3)], { width: 10, depth: 8 })).toEqual({ width: 10, depth: 8 });
+    expect(extentOf([room("a", 9, 3)], { width: 10, depth: 2 })).toEqual({ width: 12, depth: 3 });
   });
 });
 

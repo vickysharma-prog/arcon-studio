@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { defineAction, defineActionErrors } from "@agent-native/core/action";
 import { z } from "zod";
 import { ARCON_ERRORS, arcon, ownerOf } from "../server/lib/arcon.js";
-import { record, staleBefore } from "../server/lib/changes.js";
+import { record, stalePending } from "../server/lib/changes.js";
 import { ChangeInput, ChangeRow } from "../server/lib/shapes.js";
 
 type Applied = { note: string; version: number; request: { from: number; cost: string } | null };
@@ -38,7 +38,7 @@ export default defineAction({
       note,
       after: null,
     });
-    await staleBefore(owner, id, out.version);
+    await stalePending(owner, id);
     return { change: row, message: note };
   },
 });

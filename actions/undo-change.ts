@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { defineAction, defineActionErrors } from "@agent-native/core/action";
 import { z } from "zod";
 import { ARCON_ERRORS, arcon, ownerOf } from "../server/lib/arcon.js";
-import { record, staleBefore } from "../server/lib/changes.js";
+import { record, stalePending } from "../server/lib/changes.js";
 import { ChangeRow } from "../server/lib/shapes.js";
 
 // Steps the design back one version, if it is still at the version the person saw. Hidden from the agent.
@@ -34,7 +34,7 @@ export default defineAction({
       note: out.note,
       after: null,
     });
-    await staleBefore(owner, id, out.version);
+    await stalePending(owner, id);
     return { change: row, message: out.note };
   },
 });
