@@ -11,4 +11,14 @@ for f in *.func; do
   if [ -L "$f" ]; then target=$(readlink "$f"); rm "$f"; cp -r "$(basename "$target")" "$f"; fi
 done
 cd - >/dev/null
+# Run next to the database (Supabase us-west-2): every query from another continent costs a round trip.
+REGION="${STUDIO_REGION:-pdx1}" node -e '
+const fs = require("fs"), path = require("path"), dir = ".vercel/output/functions";
+for (const f of fs.readdirSync(dir)) {
+  const file = path.join(dir, f, ".vc-config.json");
+  if (!fs.existsSync(file)) continue;
+  const c = JSON.parse(fs.readFileSync(file, "utf8"));
+  c.regions = [process.env.REGION];
+  fs.writeFileSync(file, JSON.stringify(c, null, 2));
+}'
 npx --yes vercel@latest deploy --prebuilt --prod
