@@ -36,6 +36,7 @@ export default defineAction({
       status: "applied",
       resultVersion: out.version,
       note,
+      after: null,
     });
     await staleBefore(owner, id, out.version);
     return { change: row, message: note };

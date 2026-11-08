@@ -24,6 +24,7 @@ export default runMigrations(
 );
 CREATE INDEX IF NOT EXISTS studio_changes_owner_project ON studio_changes (owner_email, project_id, created_at);`,
     },
+    { version: 2, name: "studio_changes_after", sql: `ALTER TABLE studio_changes ADD COLUMN IF NOT EXISTS after JSONB;` },
   ],
   { table: "studio_migrations" },
 );

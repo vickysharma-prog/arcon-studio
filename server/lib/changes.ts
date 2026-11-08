@@ -13,6 +13,7 @@ const toRow = (r: Row): ChangeRow => ({
   change: (r.change ?? null) as Change | null,
   proposedBy: r.proposedBy as ChangeRow["proposedBy"],
   status: r.status as ChangeRow["status"],
+  after: (r.after ?? null) as ChangeRow["after"],
 });
 
 export async function record(row: Omit<Row, "createdAt" | "updatedAt">): Promise<ChangeRow> {

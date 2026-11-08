@@ -6,6 +6,9 @@
 @source "./**/*.{ts,tsx}";
 
 :root {
+  /* Arcon's own blueprint blue and leaf green, for the plan and for what the agent proposes. */
+  --brand: 220 84% 56%;
+  --leaf: 149 33% 27%;
   --background: 0 0% 100%;
   --foreground: 0 0% 10%;
   --card: 0 0% 100%;
@@ -229,6 +232,8 @@
 }
 
 .dark {
+  --brand: 221 100% 71%;
+  --leaf: 117 50% 65%;
   --background: 0 0% 13%;
   --foreground: 0 0% 90%;
   --card: 0 0% 16.47%;
@@ -280,4 +285,9 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.34);
+}
+
+@theme inline {
+  --color-brand: hsl(var(--brand));
+  --color-leaf: hsl(var(--leaf));
 }

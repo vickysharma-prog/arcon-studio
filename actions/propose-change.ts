@@ -36,6 +36,7 @@ export default defineAction({
       status: "pending",
       resultVersion: null,
       note: null,
+      after: preview.spaces,
     });
     return {
       proposal,

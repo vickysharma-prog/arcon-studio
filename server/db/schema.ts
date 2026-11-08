@@ -25,6 +25,8 @@ export const changes = pgTable(
     status: text("status").notNull(),
     resultVersion: integer("result_version"),
     note: text("note"),
+    /** Every space on the plan as the proposal would leave it, for drawing before and after. */
+    after: jsonb("after"),
     createdAt: text("created_at").notNull().default(sql`now()`),
     updatedAt: text("updated_at").notNull().default(sql`now()`),
   },

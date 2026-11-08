@@ -6,7 +6,7 @@ import { z } from "zod";
 export const ChangeInput = z
   .discriminatedUnion("op", [
     z.object({ op: z.literal("resize"), room: z.string().min(1).describe("Room id from get-design"), by: z.number().min(0.3).max(3).describe("Scale factor for the room's area, e.g. 1.2 for 20% bigger, 0.8 for smaller") }),
-    z.object({ op: z.literal("add"), kind: z.string().min(1).max(30).describe('Room kind, e.g. "bedroom", "study", "bath", "store", "pooja"'), name: z.string().min(1).max(40).describe("Name to show on the plan") }),
+    z.object({ op: z.literal("add"), kind: z.string().min(1).max(30).describe('Room kind: "office" (study), "guest-room", "bedroom", "bath", "prayer", "gym", "media", "storage", "laundry" or "meeting"'), name: z.string().min(1).max(40).describe("Name to show on the plan") }),
     z.object({ op: z.literal("remove"), room: z.string().min(1).describe("Room id from get-design") }),
     z.object({ op: z.literal("rename"), room: z.string().min(1).describe("Room id from get-design"), name: z.string().min(1).max(40).describe("New name") }),
     z.object({ op: z.literal("kitchen"), open: z.boolean().describe("true opens the kitchen to the living space, false closes it") }),
@@ -81,6 +81,7 @@ export const ChangeRow = z.object({
   status: z.enum(STATUSES),
   resultVersion: z.number().nullable(),
   note: z.string().nullable(),
+  after: z.array(Room).nullable(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

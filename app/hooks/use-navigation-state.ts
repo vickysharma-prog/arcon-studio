@@ -18,7 +18,11 @@ export interface NavigationState {
   path?: string;
   publicPath?: string;
   threadId?: string;
+  /** The Arcon project open on screen, so the agent knows what "this design" means. */
+  projectId?: string;
 }
+
+const PROJECT_PATH = /^\/projects\/([^/?#]+)/;
 
 export function useNavigationState() {
   useAgentRouteState<NavigationState>({
@@ -64,16 +68,20 @@ function matchesPathPrefix(pathname: string, prefix: string): boolean {
 
 export function navigationStateForPath(pathname: string): NavigationState {
   const threadId = threadIdFromPath(pathname);
+  const projectId = PROJECT_PATH.exec(pathname)?.[1];
   return {
     view: viewForPath(pathname),
     path: pathname,
     publicPath: appPathFromLocalRoute(pathname),
     ...(threadId ? { threadId } : {}),
+    ...(projectId ? { projectId: decodeURIComponent(projectId) } : {}),
   };
 }
 
 function viewForPath(pathname: string): string {
   if (isChatPathname(pathname)) return "chat";
+  if (PROJECT_PATH.test(pathname)) return "project";
+  if (pathname.startsWith("/projects")) return "projects";
   if (pathname === HOME_PATH) return "home";
   if (pathname.startsWith("/database")) return "database";
   if (pathname.startsWith("/extensions")) return "extensions";
@@ -93,6 +101,9 @@ function pathForView(view?: string): string {
       return NEW_CHAT_PATH;
     case "home":
       return HOME_PATH;
+    case "projects":
+    case "project":
+      return "/projects";
     case "database":
       return "/database";
     case "extensions":
@@ -111,6 +122,8 @@ function pathForView(view?: string): string {
 }
 
 export function pathForCommand(command: any): string {
+  const projectId = typeof command?.projectId === "string" ? command.projectId.trim() : "";
+  if (command?.view === "project" && projectId) return `/projects/${encodeURIComponent(projectId)}`;
   const path = pathForView(command?.view);
   if (command?.view !== "chat" && command?.view !== "ask") return path;
   const threadId =

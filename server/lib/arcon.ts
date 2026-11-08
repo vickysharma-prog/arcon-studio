@@ -32,7 +32,9 @@ const MESSAGE: Partial<Record<ArconError, string>> = {
 export async function arcon<T>(path: string, init: { method?: "GET" | "POST"; body?: unknown } = {}): Promise<T> {
   const secret = await resolveSecretDetailed("ARCON_STUDIO_TOKEN");
   if (secret.lookupFailed) fail(MESSAGE.connection_unavailable!, { errorCode: "connection_unavailable", statusCode: 503 });
-  if (!secret.value) fail(MESSAGE.not_connected!, { errorCode: "not_connected", statusCode: 401 });
+  // A connection acts as one Arcon person, so only that person's own key counts: a key shared with a whole
+  // workspace would let everyone in it act as whoever pasted it.
+  if (!secret.value || secret.source !== "user") fail(MESSAGE.not_connected!, { errorCode: "not_connected", statusCode: 401 });
   let res: Response;
   try {
     res = await fetch(`${ARCON_URL}/api/studio${path}`, {
