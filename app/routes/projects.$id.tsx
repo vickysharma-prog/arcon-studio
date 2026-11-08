@@ -69,7 +69,9 @@ export default function ProjectRoute() {
   const floors = floorsOf(d.spaces);
   const level = floors.includes(floor) ? floor : (floors[0] ?? 0);
   const spaces = proposal?.after ?? d.spaces;
-  const lastWasMine = rows.find((r) => r.status === "applied")?.resultVersion === d.version;
+  // Undo steps back the last change made here, once: not an undo, and not something changed in Arcon since.
+  const last = rows.find((r) => r.status === "applied");
+  const lastWasMine = last?.kind === "change" && last.resultVersion === d.version;
 
   return (
     <div className="@container mx-auto w-full max-w-6xl px-4 py-5 sm:px-6">
