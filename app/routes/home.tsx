@@ -1,25 +1,13 @@
-import HomePage from "@/components/home/HomePage";
+import { redirect } from "react-router";
+// Studio opens on the person's projects; the starter's Get started page is not part of it.
 import { APP_TITLE } from "@/lib/app-config";
 
-const SEO_TITLE = APP_TITLE;
-const SEO_DESCRIPTION =
-  "Work on your Arcon designs with an agent: it proposes a change, you see the new plan and its cost, and you approve.";
-
 export function meta() {
-  return [
-    { title: SEO_TITLE },
-    {
-      name: "description",
-      content: SEO_DESCRIPTION,
-    },
-    { property: "og:title", content: SEO_TITLE },
-    { property: "og:description", content: SEO_DESCRIPTION },
-    { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: SEO_TITLE },
-    { name: "twitter:description", content: SEO_DESCRIPTION },
-  ];
+  return [{ title: APP_TITLE }, { name: "description", content: "Work on your Arcon designs with an agent: it proposes, you approve." }];
 }
 
+export const loader = () => redirect("/projects");
+
 export default function HomeRoute() {
-  return <HomePage />;
+  return null;
 }

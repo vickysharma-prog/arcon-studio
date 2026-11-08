@@ -387,6 +387,7 @@ export function Sidebar({
                 className="flex size-8 items-center justify-center rounded outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
               >
                 <ArconMark
+                  growing
                   aria-hidden="true"
                   className="size-6 text-sidebar-accent-foreground"
                 />
@@ -401,6 +402,7 @@ export function Sidebar({
               className="flex min-w-0 flex-1 items-center gap-3 rounded outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
             >
               <ArconMark
+                  growing
                 aria-hidden="true"
                 className="size-6 shrink-0 text-sidebar-accent-foreground"
               />
@@ -426,13 +428,7 @@ export function Sidebar({
           Icon={IconLayoutGrid}
           prefix
         />
-        <NavLink
-          collapsed={collapsed}
-          to={HOME_PATH}
-          label={t("navigation.home")}
-          Icon={IconHome}
-        />
-        <ChatThreadsSection collapsed={collapsed} />
+
       </nav>
 
       <div className="mt-auto shrink-0 border-t border-sidebar-border p-2">
