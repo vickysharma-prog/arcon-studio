@@ -72,7 +72,7 @@ export default function ProjectRoute() {
   const lastWasMine = rows.find((r) => r.status === "applied")?.resultVersion === d.version;
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6">
+    <div className="@container mx-auto w-full max-w-6xl px-4 py-5 sm:px-6">
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <Link to="/projects" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
@@ -120,7 +120,7 @@ export default function ProjectRoute() {
         </div>
       </header>
 
-      <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="mt-5 grid gap-5 @3xl:grid-cols-[minmax(0,1fr)_20rem]">
         <section aria-label="Plan" className="min-w-0 rounded-2xl border border-border bg-card p-3 sm:p-4">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
             {floors.length > 1 ? (

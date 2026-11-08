@@ -20,7 +20,7 @@ export default function ProjectsRoute() {
       {status.isLoading ? (
         <Skeleton className="h-40 w-full rounded-2xl" />
       ) : !connected ? (
-        <ConnectArcon arconUrl={status.data?.arconUrl ?? "https://arcon-ten.vercel.app"} unavailable={status.data?.reason === "unavailable"} />
+        <ConnectArcon arconUrl={status.data?.arconUrl ?? "https://arcon-ten.vercel.app"} unavailable={status.data?.reason === "unavailable"} onConnected={() => void status.refetch()} />
       ) : (
         <>
           <p className="text-xs font-medium uppercase tracking-wider text-brand">Arcon Studio</p>

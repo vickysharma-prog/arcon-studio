@@ -134,7 +134,7 @@ export function RoomControls({ design, selected, onSelect }: { design: Design; s
                   { open: true, label: "Open" },
                   { open: false, label: "Closed" },
                 ].map((o) => {
-                  const on = Boolean(kitchen.open) === o.open;
+                  const on = (kitchen.open !== false) === o.open;
                   return (
                     <button
                       key={o.label}

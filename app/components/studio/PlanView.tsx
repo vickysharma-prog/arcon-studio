@@ -46,7 +46,7 @@ export function PlanView({
   return (
     <svg
       viewBox={`${-PAD} ${-PAD} ${w} ${h}`}
-      className="h-auto w-full select-none"
+      className="mx-auto h-auto max-h-[62vh] w-full select-none"
       role="group"
       aria-labelledby={titleId}
     >
