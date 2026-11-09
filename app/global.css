@@ -9,34 +9,34 @@
   /* Arcon's own blueprint blue and leaf green, for the plan and for what the agent proposes. */
   --brand: 220 84% 56%;
   --leaf: 149 33% 27%;
-  --background: 0 0% 100%;
-  --foreground: 0 0% 10%;
+  --background: 214 47% 97%;
+  --foreground: 215 51% 11%;
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 10%;
+  --card-foreground: 215 51% 11%;
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 10%;
-  --primary: 0 0% 15%;
+  --popover-foreground: 215 51% 11%;
+  --primary: 215 51% 11%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 95%;
-  --secondary-foreground: 0 0% 15%;
-  --muted: 0 0% 95%;
-  --muted-foreground: 0 0% 43%;
-  --accent: 0 0% 95%;
-  --accent-foreground: 0 0% 15%;
+  --secondary: 214 40% 93%;
+  --secondary-foreground: 215 51% 11%;
+  --muted: 214 40% 94%;
+  --muted-foreground: 216 18% 41%;
+  --accent: 214 45% 93%;
+  --accent-foreground: 215 51% 11%;
   --destructive: 0 91% 71%;
   --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 90%;
-  --input: 0 0% 90%;
-  --ring: 0 0% 40%;
+  --border: 215 37% 90%;
+  --input: 215 37% 88%;
+  --ring: 220 84% 56%;
   --radius: 0.5rem;
-  --sidebar-background: 0 0% 97%;
-  --sidebar-foreground: 0 0% 43%;
-  --sidebar-primary: 0 0% 15%;
+  --sidebar-background: 214 45% 95%;
+  --sidebar-foreground: 216 18% 41%;
+  --sidebar-primary: 215 51% 11%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 0 0% 95%;
-  --sidebar-accent-foreground: 0 0% 15%;
-  --sidebar-border: 0 0% 90%;
-  --sidebar-ring: 0 0% 40%;
+  --sidebar-accent: 214 40% 90%;
+  --sidebar-accent-foreground: 215 51% 11%;
+  --sidebar-border: 215 37% 90%;
+  --sidebar-ring: 220 84% 56%;
   --chat-sidebar-width: 17.5rem;
   --chat-sidebar-content-inset: 0.5rem;
   --chat-sidebar-row-padding: 0.75rem;
@@ -234,41 +234,40 @@
 .dark {
   --brand: 221 100% 71%;
   --leaf: 117 50% 65%;
-  --background: 0 0% 13%;
-  --foreground: 0 0% 90%;
-  --card: 0 0% 16.47%;
-  --card-foreground: 0 0% 90%;
-  --popover: 0 0% 15%;
-  --popover-foreground: 0 0% 90%;
-  --primary: 0 0% 75%;
-  --primary-foreground: 0 0% 10%;
-  --secondary: 0 0% 18%;
-  --secondary-foreground: 0 0% 90%;
-  --muted: 0 0% 16%;
-  --muted-foreground: 0 0% 60%;
-  --accent: 0 0% 18%;
-  --accent-foreground: 0 0% 90%;
+  --background: 216 28% 7%;
+  --foreground: 208 35% 93%;
+  --card: 214 25% 11%;
+  --card-foreground: 208 35% 93%;
+  --popover: 214 25% 11%;
+  --popover-foreground: 208 35% 93%;
+  --primary: 221 100% 71%;
+  --primary-foreground: 216 28% 7%;
+  --secondary: 213 22% 16%;
+  --secondary-foreground: 208 35% 93%;
+  --muted: 213 22% 14%;
+  --muted-foreground: 212 13% 60%;
+  --accent: 213 22% 16%;
+  --accent-foreground: 208 35% 93%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 24%;
-  --input: 0 0% 24%;
-  --ring: 0 0% 60%;
+  --border: 213 22% 18%;
+  --input: 213 22% 20%;
+  --ring: 221 100% 71%;
   --radius: 0.5rem;
-  --sidebar-background: 0 0% 10%;
-  --sidebar-foreground: 0 0% 60%;
-  --sidebar-primary: 0 0% 75%;
-  --sidebar-primary-foreground: 0 0% 10%;
-  --sidebar-accent: 0 0% 16%;
-  --sidebar-accent-foreground: 0 0% 90%;
-  --sidebar-border: 0 0% 20%;
-  --sidebar-ring: 0 0% 60%;
+  --sidebar-background: 216 30% 5%;
+  --sidebar-foreground: 212 13% 60%;
+  --sidebar-primary: 208 35% 93%;
+  --sidebar-primary-foreground: 216 28% 7%;
+  --sidebar-accent: 213 22% 14%;
+  --sidebar-accent-foreground: 208 35% 93%;
+  --sidebar-border: 213 22% 15%;
+  --sidebar-ring: 221 100% 71%;
 }
 
 @layer base {
   body {
     @apply bg-background text-foreground;
-    font-family: "Inter Variable", "Inter", sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-family: "Funnel Sans", "Inter Variable", "Inter", sans-serif;
   }
 }
 
@@ -305,4 +304,17 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .arcon-mark-grow circle { animation: none; }
+}
+
+/* Arcon's type: Funnel Display for headings, Funnel Sans for text, Martian Mono for figures and code. */
+h1,
+h2,
+.font-display {
+  font-family: "Funnel Display", "Funnel Sans", sans-serif;
+  letter-spacing: -0.01em;
+}
+.font-mono,
+code,
+kbd {
+  font-family: "Martian Mono", ui-monospace, monospace;
 }

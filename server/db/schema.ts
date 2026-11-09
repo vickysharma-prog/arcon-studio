@@ -32,3 +32,6 @@ export const changes = pgTable(
   },
   (t) => [index("studio_changes_owner_project").on(t.ownerEmail, t.projectId, t.createdAt)],
 );
+
+// The architect's data (clients, projects, versions, thread, approvals) is defined with the engine.
+export { approvals, clients, messages, projects, versions } from "../../engine/db/schema.ts";

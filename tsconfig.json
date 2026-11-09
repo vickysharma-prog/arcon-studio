@@ -16,7 +16,15 @@
       "@shared/*": [
         "./shared/*"
       ]
-    }
+    },
+    "noUncheckedIndexedAccess": false,
+    "exactOptionalPropertyTypes": false,
+    "allowImportingTsExtensions": true,
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ]
   },
   "include": [
     "app/**/*",
@@ -26,6 +34,10 @@
     "vite.config.ts",
     "react-router.config.ts",
     ".react-router/types/**/*",
-    ".generated/**/*"
+    ".generated/**/*",
+    "engine/**/*.ts"
+  ],
+  "exclude": [
+    "engine/**/*.test.ts"
   ]
 }

@@ -47,10 +47,16 @@ configureTracking({
 });
 
 export const links: LinksFunction = () => [
+  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500;600;700&family=Funnel+Sans:wght@400;500;600;700&family=Martian+Mono:wght@400;500&display=swap",
+  },
   { rel: "stylesheet", href: stylesheet },
 ];
 
-const THEME_INIT_SCRIPT = getThemeInitScript();
+const THEME_INIT_SCRIPT = getThemeInitScript("system", true);
 const LOCALE_INIT_SCRIPT = getLocaleInitScript();
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -185,6 +191,7 @@ export default function Root() {
       <AppProviders
         queryClient={queryClient}
         skeletonLayout={skeletonLayoutForPath(pathname)}
+        defaultTheme="system"
         i18n={{ catalog: i18nCatalog }}
       >
         <DbSyncSetup />
