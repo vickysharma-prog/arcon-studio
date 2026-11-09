@@ -186,16 +186,25 @@ export default function Root() {
   // The path, not the visitor, picks the shell, so the SSR shell stays one
   // cached page per URL.
   const { pathname } = useLocation();
+  // The front page is public and stands on its own, without the app's sidebar and chat.
+  const landing = pathname === "/" || pathname === "/about";
   return (
     <AppToolkitProvider>
       <AppProviders
         queryClient={queryClient}
         skeletonLayout={skeletonLayoutForPath(pathname)}
-        defaultTheme="system"
+        defaultTheme="light"
+        isPublicPath={landing}
         i18n={{ catalog: i18nCatalog }}
       >
-        <DbSyncSetup />
-        <AppContent />
+        {landing ? (
+          <Outlet />
+        ) : (
+          <>
+            <DbSyncSetup />
+            <AppContent />
+          </>
+        )}
       </AppProviders>
     </AppToolkitProvider>
   );

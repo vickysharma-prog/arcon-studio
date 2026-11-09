@@ -1,5 +1,13 @@
-import { signInLandingLoader } from "@agent-native/core/client/sign-in-landing";
-import type { LoaderFunctionArgs } from "react-router";
+import { Landing } from "@/components/landing/Landing";
 
-// Signed in, Studio opens on the person's projects.
-export const loader = ({ request }: LoaderFunctionArgs) => signInLandingLoader("/projects", request);
+export function meta() {
+  return [
+    { title: "Arcon Studio · for architects" },
+    { name: "description", content: "Sit with your client, and Arcon turns what they tell you into their style, three plans, a 3D walkthrough and a budget. An agent works beside you: it proposes, you approve." },
+  ];
+}
+
+// The front page, open to everyone; the studio itself is behind sign-in at /projects.
+export default function IndexRoute() {
+  return <Landing />;
+}
