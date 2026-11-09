@@ -129,7 +129,7 @@ export function Intro() {
             ))}
           </svg>
           <p className="mt-6 flex font-serif text-5xl leading-none">
-            {"Arcon".split("").map((ch, i) => (
+            {"Arcon Studio".split("").map((ch, i) => (
               <span key={i} className="intro-letter" style={{ animationDelay: `${900 + i * 70}ms` }}>
                 {ch}
               </span>

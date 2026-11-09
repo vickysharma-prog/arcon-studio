@@ -520,14 +520,14 @@ export function Footer() {
             <Logo size={24} />
           </HomeLink>
           <p className="mt-3 max-w-xs text-sm text-ink-soft">The architect&apos;s studio, with an agent that knows your client&apos;s taste.</p>
-          <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-brand">Spaces designed around who they are</p>
+          <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-brand">Your client’s taste, drawn in minutes</p>
         </div>
         <nav aria-label="Arcon" className="grid content-start gap-2 text-sm">
           <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-soft">Arcon Studio</p>
           <Link href="/projects" className="w-fit hover:text-brand">Open your studio</Link>
-          <a href="#how" className="w-fit hover:text-brand">How it works</a>
-          <a href="#faq" className="w-fit hover:text-brand">Questions</a>
-          <a href="#judges" className="w-fit hover:text-brand">For judges</a>
+          <a href="/about#how" className="w-fit hover:text-brand">How it works</a>
+          <a href="/resources" className="w-fit hover:text-brand">Resources</a>
+          <a href="/about#judges" className="w-fit hover:text-brand">For judges</a>
         </nav>
         <div className="grid content-start gap-2 text-sm">
           <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-soft">Made by Vicky Sharma</p>

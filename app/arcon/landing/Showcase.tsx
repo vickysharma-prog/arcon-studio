@@ -140,7 +140,7 @@ export function Showcase() {
   // No frame: the house is drawn straight onto the page.
   return (
     <div className="relative">
-      <div ref={box} className="relative h-[380px] sm:h-[500px] lg:-mr-16 lg:h-[600px]">
+      <div ref={box} className="relative h-[24rem] sm:h-[31rem] lg:-mr-16 lg:h-[37rem]">
         {/* one 3D view for every phase; the copy over it dissolves each change */}
         <div className="absolute inset-0">
           {ready ? (

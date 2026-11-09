@@ -1,8 +1,8 @@
 import { runMigrations } from "@agent-native/core/db";
 import { ENGINE_MIGRATIONS } from "../../engine/db/schema.ts";
 
-export default runMigrations(
-  [
+/** Studio's tables in order; tests run the same list on an in-memory Postgres. */
+export const MIGRATIONS = [
     {
       version: 1,
       name: "studio_changes",
@@ -27,6 +27,6 @@ CREATE INDEX IF NOT EXISTS studio_changes_owner_project ON studio_changes (owner
     },
     { version: 2, name: "studio_changes_after", sql: `ALTER TABLE studio_changes ADD COLUMN IF NOT EXISTS after JSONB;` },
     ...ENGINE_MIGRATIONS,
-  ],
-  { table: "studio_migrations" },
-);
+];
+
+export default runMigrations(MIGRATIONS, { table: "studio_migrations" });

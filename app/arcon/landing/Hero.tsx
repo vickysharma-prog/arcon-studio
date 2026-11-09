@@ -1,6 +1,7 @@
 
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Logo } from "@arcon/Logo";
@@ -15,10 +16,14 @@ const LINKS = [
   ["Taste", "#taste"],
   ["Plans", "#plans"],
   ["The agent", "#agent"],
-  ["Resources", "#faq"],
+  ["Resources", "/resources"],
 ];
 
 export function LandingHeader() {
+  // on another page (Resources), the section links lead back to the front page
+  const here = usePathname();
+  const base = here === "/" || here === "/about" ? "" : "/about";
+  const to = (h: string) => (h.startsWith("#") ? base + h : h);
   const [scrolled, setScrolled] = useState(false);
   const [hover, setHover] = useState<string | null>(null);
   useEffect(() => {
@@ -38,7 +43,7 @@ export function LandingHeader() {
           className={`hidden items-center gap-1 rounded-full border p-1 text-sm backdrop-blur-md transition-all duration-300 xl:flex ${scrolled ? "border-line bg-paper-raised/80 shadow-[0_10px_40px_-20px_hsl(var(--brand))]" : "border-line/70 bg-paper-raised/50"}`}
         >
           {LINKS.map(([label, href]) => (
-            <a key={href} href={href} onMouseEnter={() => setHover(href)} onClick={() => tick()} className="relative whitespace-nowrap rounded-full px-4 py-1.5 text-ink-soft transition-colors hover:text-ink">
+            <a key={href} href={to(href)} onMouseEnter={() => setHover(href)} onClick={() => tick()} className="relative whitespace-nowrap rounded-full px-4 py-1.5 text-ink-soft transition-colors hover:text-ink">
               {hover === href && <motion.span layoutId="nav-hover" className="absolute inset-0 rounded-full bg-brand/10 ring-1 ring-brand/30" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
               <span className="relative">{label}</span>
             </a>
@@ -46,7 +51,7 @@ export function LandingHeader() {
         </nav>
         <div className="flex items-center gap-2 justify-self-end sm:gap-2.5">
           {/* the judges' path: what to try, in order */}
-          <a href="#judges" onClick={() => tick()} className="flex h-9 items-center gap-2 whitespace-nowrap rounded-full border border-brand/50 bg-brand/5 px-3 text-sm text-brand transition hover:-translate-y-0.5 hover:bg-brand/10 hover:shadow-[0_10px_30px_-12px_hsl(var(--brand))]">
+          <a href={to("#judges")} onClick={() => tick()} className="flex h-9 items-center gap-2 whitespace-nowrap rounded-full border border-brand/50 bg-brand/5 px-3 text-sm text-brand transition hover:-translate-y-0.5 hover:bg-brand/10 hover:shadow-[0_10px_30px_-12px_hsl(var(--brand))]">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60 motion-reduce:hidden" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
@@ -62,7 +67,7 @@ export function LandingHeader() {
   );
 }
 
-const WORDS = ["who they are", "what they love", "how they live", "how they work"];
+const WORDS = ["drawn in minutes.", "walked in 3D.", "priced by room.", "ready to build."];
 
 // The first screen: what Arcon does in one line, the way in, and a plan that designs itself from taste.
 export function Hero() {
@@ -95,10 +100,10 @@ export function Hero() {
             transition={{ delay: 0.2 }}
             className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand sm:text-xs sm:tracking-[0.3em]"
           >
-            Arcon Studio · for architects and interior designers
+            For architects
           </motion.p>
           <h1 className="mt-6 font-serif text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">
-            Spaces designed around
+            Your client’s taste,
             <span className="relative block h-[1.15em] overflow-hidden text-brand">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span
@@ -109,7 +114,7 @@ export function Hero() {
                   exit={{ y: "-100%", opacity: 0, filter: "blur(8px)" }}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  {WORDS[word]}.
+                  {WORDS[word]}
                 </motion.span>
               </AnimatePresence>
             </span>

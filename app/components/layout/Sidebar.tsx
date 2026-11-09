@@ -13,8 +13,21 @@ import {
 import { OrgSwitcher } from "@agent-native/toolkit/app/org";
 import { openCommandMenu } from "@agent-native/toolkit/app/shared";
 import {
+  IconBook,
+  IconBox,
+  IconBrush,
+  IconCash,
   IconEdit,
+  IconFileText,
   IconHome,
+  IconLayoutDashboard,
+  IconLayoutList,
+  IconMessages,
+  IconPlayerPlay,
+  IconPlus,
+  IconRobot,
+  IconSparkles,
+  IconTools,
   IconLayoutGrid,
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarLeftExpand,
@@ -163,6 +176,61 @@ function NavLink({
   }
 
   return <div className="px-2">{link}</div>;
+}
+
+// Inside a project, its parts, one click each: the same tabs and steps the project screen has.
+const PROJECT_PARTS = [
+  { label: "Overview", q: "?tab=overview", Icon: IconLayoutDashboard },
+  { label: "Style", q: "?step=brief", Icon: IconBrush },
+  { label: "Plans", q: "?step=plans", Icon: IconLayoutList },
+  { label: "3D", q: "?step=walkthrough", Icon: IconBox },
+  { label: "Make changes", q: "?step=workspace", Icon: IconTools },
+  { label: "Budget & shopping", q: "?step=budget", Icon: IconCash },
+  { label: "Thread", q: "?tab=thread", Icon: IconMessages },
+  { label: "Files", q: "?step=drawings", Icon: IconFileText },
+  { label: "With the agent", q: "/changes", Icon: IconRobot },
+] as const;
+
+function ProjectParts({ collapsed }: { collapsed: boolean }) {
+  const location = useLocation();
+  const id = /^\/projects\/([^/]+)/.exec(location.pathname)?.[1];
+  if (!id || id === "new") return null;
+  const here = location.pathname.endsWith("/changes") ? "/changes" : location.search;
+  return (
+    <div className={cn(collapsed ? "mt-2 flex flex-col items-center gap-1 border-t border-sidebar-border pt-2" : "mt-3")}>
+      {!collapsed ? <p className="px-5 pb-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">This project</p> : null}
+      {PROJECT_PARTS.map((part) => {
+        const to = part.q.startsWith("/") ? `/projects/${id}${part.q}` : `/projects/${id}${part.q}`;
+        const active = here === part.q || (part.q === "?tab=overview" && here === "" && !location.pathname.endsWith("/changes"));
+        const link = (
+          <Link
+            key={part.label}
+            to={to}
+            aria-current={active ? "page" : undefined}
+            aria-label={collapsed ? part.label : undefined}
+            className={cn(
+              "flex items-center text-sidebar-accent-foreground transition-colors hover:bg-sidebar-accent",
+              active && "bg-sidebar-accent",
+              collapsed ? "size-8 justify-center rounded-md" : "h-8 w-full gap-3 rounded-lg px-3 text-sm",
+            )}
+          >
+            <part.Icon className="size-4 shrink-0" strokeWidth={1.8} />
+            <span className={collapsed ? "sr-only" : "truncate"}>{part.label}</span>
+          </Link>
+        );
+        return collapsed ? (
+          <Tooltip key={part.label}>
+            <TooltipTrigger asChild>{link}</TooltipTrigger>
+            <TooltipContent side="right">{part.label}</TooltipContent>
+          </Tooltip>
+        ) : (
+          <div key={part.label} className="px-2">
+            {link}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 function ChatThreadsSection({ collapsed }: { collapsed: boolean }) {
@@ -421,13 +489,17 @@ export function Sidebar({
           collapsed ? "items-center gap-1 px-1 py-2" : "pt-1",
         )}
       >
+        <NavLink collapsed={collapsed} to="/projects?new=1" label="New client" Icon={IconPlus} />
         <NavLink
           collapsed={collapsed}
           to="/projects"
           label="Projects"
           Icon={IconLayoutGrid}
-          prefix
         />
+        <NavLink collapsed={collapsed} to="/chat" label="Ask the agent" Icon={IconSparkles} prefix />
+        <NavLink collapsed={collapsed} to="/demo" label="Take the tour" Icon={IconPlayerPlay} />
+        <NavLink collapsed={collapsed} to="/resources" label="Resources" Icon={IconBook} />
+        <ProjectParts collapsed={collapsed} />
 
       </nav>
 

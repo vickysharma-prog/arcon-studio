@@ -1,10 +1,11 @@
-import { useActionQuery } from "@agent-native/core/client/hooks";
-import { IconChevronRight, IconPlus, IconUser } from "@tabler/icons-react";
-import { useState } from "react";
-import { Link } from "react-router";
+import { callAction, useActionQuery } from "@agent-native/core/client/hooks";
+import { IconChevronRight, IconPlayerPlay, IconPlus, IconUser } from "@tabler/icons-react";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router";
 
 import { ArconMark } from "@/components/ArconMark";
 import { NewProject } from "@/components/studio/NewProject";
+import { startTour, STEPS } from "@/components/studio/Tour";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ago } from "@/lib/plan";
@@ -30,11 +31,30 @@ const hrefOf = (p: { id: string; status: string }) => (p.status === "interview" 
 export default function StudioHome() {
   const projects = useActionQuery("list-projects", {});
   const clients = useActionQuery("list-clients", {});
-  const [adding, setAdding] = useState<{ id: string; name: string } | null | undefined>(undefined);
+  const [search] = useSearchParams();
+  const navigate = useNavigate();
+  const [adding, setAdding] = useState<{ id: string; name: string } | null | undefined>(search.get("new") ? null : undefined);
+  useEffect(() => {
+    if (search.get("new")) setAdding(null);
+  }, [search]);
 
   const list = projects.data?.projects ?? [];
   const people = clients.data?.clients ?? [];
   const empty = projects.isSuccess && clients.isSuccess && !list.length && !people.length;
+
+  // A first visit opens on a full studio: the sample clients, at every stage, so every screen has something to show.
+  const seeding = useRef(false);
+  useEffect(() => {
+    if (!empty || seeding.current) return;
+    seeding.current = true;
+    void callAction("seed-studio", {}).then(() => Promise.all([projects.refetch(), clients.refetch()]));
+  }, [empty, projects, clients]);
+  const tour = async () => {
+    const r = await callAction("seed-studio", {});
+    if (!r.demo) return;
+    startTour(r.demo);
+    navigate(STEPS[0]!.path(r.demo));
+  };
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
@@ -45,10 +65,16 @@ export default function StudioHome() {
           <p className="mt-1 text-sm text-muted-foreground">Your clients and their designs. The agent works beside you; nothing changes until you approve.</p>
         </div>
         {adding === undefined && !empty ? (
-          <Button onClick={() => setAdding(null)}>
-            <IconPlus aria-hidden />
-            New client
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" onClick={() => void tour()}>
+              <IconPlayerPlay aria-hidden />
+              Take the tour
+            </Button>
+            <Button onClick={() => setAdding(null)}>
+              <IconPlus aria-hidden />
+              New client
+            </Button>
+          </div>
         ) : null}
       </header>
 
@@ -128,7 +154,10 @@ export default function StudioHome() {
                     <IconUser className="size-4" />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-medium">{c.name}</span>
+                    <span className="flex items-center gap-1.5 truncate text-sm font-medium">
+                      {c.name}
+                      {c.notes?.startsWith("Sample client") ? <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-normal text-muted-foreground">Sample</span> : null}
+                    </span>
                     <span className="block truncate text-xs text-muted-foreground">
                       {c.projects} project{c.projects === 1 ? "" : "s"}
                       {c.contactEmail ? ` · ${c.contactEmail}` : ""}

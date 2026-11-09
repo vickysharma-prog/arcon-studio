@@ -22,6 +22,7 @@ import {
 import type { LinksFunction } from "react-router";
 
 import { Layout as AppLayout } from "@/components/layout/Layout";
+import { Tour } from "@/components/studio/Tour";
 import { AppToolkitProvider } from "@/components/ui/toolkit-provider";
 import { useNavigationState } from "@/hooks/use-navigation-state";
 import { APP_TITLE } from "@/lib/app-config";
@@ -175,6 +176,7 @@ function AppContent() {
         </CommandMenu.Group>
       </CommandMenu>
       <AppLayout>
+        <Tour />
         <Outlet />
       </AppLayout>
     </>
@@ -187,7 +189,7 @@ export default function Root() {
   // cached page per URL.
   const { pathname } = useLocation();
   // The front page is public and stands on its own, without the app's sidebar and chat.
-  const landing = pathname === "/" || pathname === "/about";
+  const landing = pathname === "/" || pathname === "/about" || pathname === "/resources";
   return (
     <AppToolkitProvider>
       <AppProviders

@@ -443,3 +443,11 @@ html.intro-seen .intro { display: none; }
   .intro { display: none; }
 }
 
+
+/* The front page reads larger on laptop and desktop screens: every rem size grows with it. */
+@media (min-width: 1200px) {
+  html.landing-big { font-size: 18px; }
+}
+@media (min-width: 1600px) {
+  html.landing-big { font-size: 20px; }
+}

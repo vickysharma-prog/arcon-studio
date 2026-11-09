@@ -18,8 +18,8 @@ export function Logo({ size = 32 }: { size?: number }) {
   return (
     <span className="inline-flex items-center gap-2.5">
       <Mark size={size} />
-      <span className="font-serif leading-none text-ink" style={{ fontSize: size * 0.95 }}>
-        Arcon
+      <span className="whitespace-nowrap font-serif leading-none text-ink" style={{ fontSize: size * 0.95 }}>
+        Arcon <span className="text-ink-soft">Studio</span>
       </span>
     </span>
   );

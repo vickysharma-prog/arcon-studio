@@ -1,82 +1,10 @@
-import dynamic from "next/dynamic";
-import Link from "next/link";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { useState, type ReactNode } from "react";
 
 import { Reveal } from "@arcon/fx/Motion";
 import { tick, transition } from "@arcon/fx/sfx";
-import { buildingShell } from "@engine/layout/footprint";
-import { place } from "@engine/layout/place";
-import { DEFAULT_SHELLS, TEMPLATES } from "@engine/layout/templates";
 
-// The sections only Studio has: the house as a film you scroll through, the agent beside the architect, and the
-// judges' path. They sit between Arcon's own landing sections.
-
-const HouseScene = dynamic(() => import("@arcon/three/HouseScene"), { ssr: false, loading: () => null });
-
-const BRIEF = {
-  name: "Pale Scandinavian",
-  summary: "Pale timber, linen and soft light",
-  palette: [
-    { role: "base", hex: "#f4f7fb" },
-    { role: "wood", hex: "#cdb497" },
-    { role: "accent", hex: "#2f6fed" },
-    { role: "dark", hex: "#55657d" },
-  ],
-  materials: [
-    { name: "Pale timber floors", where: "living and bedrooms" },
-    { name: "White paint", where: "walls" },
-  ],
-};
-
-// What the scroll shows, in order: the drawing, the same floor furnished, the floor above, and the house at night.
-const SCENES = [
-  { sketch: true, level: 0, night: false, eyebrow: "Drawn", line: "First, the plan as a drawing." },
-  { sketch: false, level: 0, night: false, eyebrow: "Furnished", line: "Then furnished, in your client's style." },
-  { sketch: false, level: 1, night: false, eyebrow: "Every floor", line: "Every floor, every room, to scale." },
-  { sketch: false, level: 1, night: true, eyebrow: "Day and night", line: "By day, or with every lamp lit." },
-] as const;
-
-/** The house holds the screen while the scroll turns it from a drawing into a lit home. */
-export function HouseFilm() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const [at, setAt] = useState(0);
-  const [near, setNear] = useState(false);
-  useMotionValueEvent(scrollYProgress, "change", (v) => setAt(Math.min(SCENES.length - 1, Math.max(0, Math.floor(v * SCENES.length)))));
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.82, 1, 1.12]);
-  const lift = useTransform(scrollYProgress, [0, 1], ["4%", "-4%"]);
-  const bar = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const layout = useMemo(() => place(TEMPLATES.house, buildingShell(TEMPLATES.house, DEFAULT_SHELLS.house)), []);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([e]) => setNear(!!e?.isIntersecting), { rootMargin: "200px" });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-  const s = SCENES[at];
-  return (
-    <section ref={ref} aria-label="The house, scene by scene" className="relative" style={{ height: `${SCENES.length * 90 + 40}vh` }}>
-      <div className="sticky top-0 flex h-dvh flex-col overflow-hidden bg-paper">
-        <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pt-24 text-center sm:px-8">
-          <AnimatePresence mode="wait">
-            <motion.div key={at} initial={{ opacity: 0, y: 18, filter: "blur(8px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -18, filter: "blur(8px)" }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}>
-              <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-brand">{s.eyebrow}</p>
-              <h2 className="mt-3 font-serif text-4xl leading-tight sm:text-6xl">{s.line}</h2>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-        <motion.div style={{ scale, y: lift }} className="relative min-h-0 flex-1">
-          {near && <HouseScene layout={layout} brief={BRIEF as never} newBuild mode="showcase" sketch={s.sketch} night={s.night} cutaway upTo={s.level} playing={false} paused={!near} />}
-        </motion.div>
-        <div className="relative mx-auto mb-8 h-0.5 w-48 overflow-hidden rounded-full bg-line">
-          <motion.div className="h-full bg-brand" style={{ width: bar }} />
-        </div>
-      </div>
-    </section>
-  );
-}
+// The sections only Studio has: the agent beside the architect, and the judges' path. They sit between Arcon's own landing sections.
 
 const ACTIONS = [
   { id: "design-project", you: "Click “Design my space”", agent: "“Draw Priya three plans”", out: "Three plans from her interview, each with its reasons." },
@@ -151,12 +79,10 @@ export function AgentSide() {
   );
 }
 
-const TRY = [
-  "Open your studio and sign in with Google.",
-  "Add a client, then answer the interview as them: a look, a feel and three things they love.",
-  "Three plans appear. Choose one and walk through it in 3D.",
-  "In the chat, ask: “Make the study big enough for two desks.” See it over the plan, then approve it.",
-  "Open Budget & shopping, then send the design for review and record the client's answer.",
+const DEMO = [
+  "Sign in with Google: a full sample studio is set up in your account, six clients at every stage.",
+  "A guided run takes you through it end to end: style, plans, 3D, the agent's proposal, budget, review and drawings.",
+  "Approve the agent's change, ask it your own question, then add a client of your own.",
 ];
 
 export function Judges() {
@@ -166,21 +92,19 @@ export function Judges() {
         <div className="relative overflow-hidden rounded-[2rem] border border-brand/40 bg-paper-raised p-7 shadow-[0_50px_100px_-60px_hsl(var(--brand))] sm:p-10">
           <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/15 blur-3xl" />
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-brand">For judges</p>
-          <h2 className="mt-3 font-serif text-4xl sm:text-5xl">Try it in five minutes.</h2>
-          <ol className="mt-6 grid gap-3">
-            {TRY.map((t, i) => (
-              <li key={t} className="flex gap-4">
-                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-brand/50 font-mono text-xs text-brand">{i + 1}</span>
-                <span className="pt-0.5">{t}</span>
+          <h2 className="mt-3 font-serif text-4xl sm:text-5xl">A full studio, end to end, in five minutes.</h2>
+          <ul className="mt-6 grid gap-3">
+            {DEMO.map((t) => (
+              <li key={t} className="flex gap-3">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
+                <span>{t}</span>
               </li>
             ))}
-          </ol>
-          <p className="mt-6 rounded-2xl border border-line bg-paper p-4 text-sm text-ink-soft">
-            The design engine comes from Arcon, which I built earlier; Arcon Studio and its agent workspace were built during the hackathon.
-          </p>
-          <Link href="/projects" onClick={() => transition()} className="glow-btn mt-6 px-6 py-3.5 text-base">
-            Open the studio
-          </Link>
+          </ul>
+          <a href="/demo" onClick={() => transition()} className="glow-btn mt-8 px-7 py-3.5 text-base">
+            Start the demo
+          </a>
+          <p className="mt-6 text-sm text-ink-soft">The design engine comes from Arcon, which I built earlier; Arcon Studio and its agent workspace were built during the hackathon.</p>
         </div>
       </Reveal>
     </section>
