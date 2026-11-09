@@ -104,7 +104,7 @@ export function stageReached(messages: readonly Msg[]): number {
 
 export type Choices = { choices: string[]; multi: boolean; hint: string | null };
 
-/** The answers to tap for the question just asked: from the latest message, only if it is Arcon's. */
+/** The answers to tap for the question just asked: from the latest message, only if it is Studio's. */
 export function pendingChoices(messages: readonly Msg[]): Choices | null {
   const last = messages.at(-1);
   if (!last || last.role !== "assistant") return null;

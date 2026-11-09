@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useSearchParams as useRouterSearchParams } from "react-router";
 
-// Next's navigation hooks, answered by React Router, for Arcon's components.
+// Next's navigation hooks, answered by React Router, for Studio's components.
 export function useRouter() {
   const navigate = useNavigate();
   return {

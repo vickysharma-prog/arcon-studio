@@ -8,7 +8,7 @@ import { decide, lastApproval, listMessages, postMessage } from "../../engine/pr
 import type { Layout } from "../../engine/layout/schema.ts";
 import "../db/index.js";
 
-// The architect's store on a real (in-memory) Postgres: the same functions Arcon's engine calls.
+// The architect's store on a real (in-memory) Postgres: the same functions Studio's engine calls.
 
 const layout = (w: number) => ({ shell: { width: w, depth: 8 }, floors: [{ level: 0, spaces: [] }] }) as unknown as Layout;
 

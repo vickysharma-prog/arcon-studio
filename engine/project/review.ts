@@ -34,7 +34,7 @@ export function eventText(e: ThreadEvent, who: string): string {
     case "review":
       return `${who} sent version ${e.version} for review.`;
     case "approved":
-      // `for`: a client who isn't on Arcon, whose answer the pro records from their meeting
+      // `for`: a client who isn't on Arcon Studio, whose answer the pro records from their meeting
       return e.for ? `${e.for} approved version ${e.version} in person (recorded by ${who}).${e.note ? ` "${e.note}"` : ""}` : `${who} approved version ${e.version}.${e.note ? ` "${e.note}"` : ""}`;
     case "changes":
       return e.for ? `${e.for} asked for changes to version ${e.version} in person (recorded by ${who}).${e.note ? ` "${e.note}"` : ""}` : `${who} asked for changes to version ${e.version}.${e.note ? ` "${e.note}"` : ""}`;

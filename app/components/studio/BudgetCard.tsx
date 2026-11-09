@@ -1,6 +1,6 @@
 import type { Budget } from "./types";
 
-// What the chosen plan costs to build, from Arcon's own estimate, in the project's currency.
+// What the chosen plan costs to build, from Studio's own estimate, in the project's currency.
 
 const fmt = (n: number, currency: string) => {
   try {

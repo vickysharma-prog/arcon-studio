@@ -84,7 +84,7 @@ export default function StudioHome() {
             <div className="mb-4 flex items-center gap-3 rounded-2xl border border-dashed border-border p-4">
               <ArconMark growing className="size-10 shrink-0 text-foreground" aria-hidden />
               <p className="text-sm text-muted-foreground">
-                Start with your first client. You&apos;ll run Arcon&apos;s interview with them, then pick from plans drawn from what they said.
+                Start with your first client. You&apos;ll run Studio&apos;s interview with them, then pick from plans drawn from what they said.
               </p>
             </div>
           ) : null}

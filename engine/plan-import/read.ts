@@ -80,7 +80,7 @@ export function fromModel(raw: LooseRead, hints: Hints): { read: ReadPlan; quest
   const width = (raw.width || 10) * fx;
   const depth = (raw.depth || 10) * fy;
   let entry = raw.entry && Number.isFinite(raw.entry.x) && Number.isFinite(raw.entry.y) ? { x: raw.entry.x * fx, y: raw.entry.y * fy } : null;
-  // Arcon keeps the street side at y = 0. If the drawn entrance is on the far side, turn the plan around.
+  // Arcon Studio keeps the street side at y = 0. If the drawn entrance is on the far side, turn the plan around.
   if (entry && entry.y > depth * 0.75) {
     for (const r of rooms) r.y = depth - r.y - r.h;
     entry = { x: entry.x, y: depth - entry.y };

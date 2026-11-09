@@ -10,7 +10,7 @@ export function meta() {
   return [{ title: "3D · Arcon Studio" }];
 }
 
-// Arcon's 3D model of the design, drawn in the browser only (WebGL has no server side).
+// Studio's 3D model of the design, drawn in the browser only (WebGL has no server side).
 const HouseScene = lazy(() => import("@arcon/three/HouseScene"));
 type SceneProps = ComponentProps<typeof HouseScene>;
 

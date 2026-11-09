@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState, type ComponentType, type ReactNode } from "react";
 
-// Next's dynamic(), as Arcon's components use it: a component loaded on demand, in the browser only when ssr is false.
+// Next's dynamic(), as Studio's components use it: a component loaded on demand, in the browser only when ssr is false.
 type Options = { ssr?: boolean; loading?: () => ReactNode };
 
 export default function dynamic<P extends object>(load: () => Promise<{ default: ComponentType<P> }>, options: Options = {}) {

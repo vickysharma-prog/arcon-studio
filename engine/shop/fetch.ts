@@ -20,7 +20,7 @@ export type Shopping = { tier: Tier; signals: PriceSignal[]; currency: string; l
 const tagsOf = (e: Entity, family: string) =>
   (e.tags ?? []).filter((t) => tagId(t).includes(`:${family}:`)).map((t) => ({ id: tagId(t).split(":").pop() ?? "", name: t.name ?? "" }));
 
-/** Pure: what Arcon needs to know about a brand entity. */
+/** Pure: what Arcon Studio needs to know about a brand entity. */
 export function brandInfo(e: Entity, p: Pick<Project, "taste_signals" | "taste">): BrandInfo {
   const level = tagsOf(e, "price_level").map((t) => t.name.match(/^\$+$/)?.[0].length).find(Boolean);
   const c = creditOf(p, e.name);

@@ -6,7 +6,7 @@
 @source "./**/*.{ts,tsx}";
 
 :root {
-  /* Arcon's own blueprint blue and leaf green, for the plan and for what the agent proposes. */
+  /* Studio's own blueprint blue and leaf green, for the plan and for what the agent proposes. */
   --brand: 220 84% 56%;
   --leaf: 149 33% 27%;
   --background: 214 47% 97%;
@@ -289,7 +289,7 @@
 @theme inline {
   --color-brand: hsl(var(--brand));
   --color-leaf: hsl(var(--leaf));
-  /* Arcon's names for the same colours, so components ported from Arcon render unchanged. */
+  /* Studio's names for the same colours, so components ported from Arcon Studio render unchanged. */
   --color-paper: hsl(var(--background));
   --color-paper-raised: hsl(var(--card));
   --color-ink: hsl(var(--foreground));
@@ -301,7 +301,7 @@
   --font-mono: "Martian Mono", ui-monospace, monospace;
 }
 
-/* Arcon's mark, growing: each seed appears from the centre outward, holds, and folds away, on a loop. */
+/* Studio's mark, growing: each seed appears from the centre outward, holds, and folds away, on a loop. */
 @keyframes arcon-seed {
   0% { transform: scale(0); opacity: 0; }
   9%, 68% { transform: scale(1); opacity: 1; }
@@ -316,7 +316,7 @@
   .arcon-mark-grow circle { animation: none; }
 }
 
-/* Arcon's type: Funnel Display for headings, Funnel Sans for text, Martian Mono for figures and code. */
+/* Studio's type: Funnel Display for headings, Funnel Sans for text, Martian Mono for figures and code. */
 h1,
 h2,
 .font-display {
@@ -329,7 +329,7 @@ kbd {
   font-family: "Martian Mono", ui-monospace, monospace;
 }
 
-/* Arcon's main button: ink to blueprint blue, with a light that runs across on hover. */
+/* Studio's main button: ink to blueprint blue, with a light that runs across on hover. */
 .glow-btn {
   position: relative;
   display: inline-flex;
@@ -366,7 +366,7 @@ kbd {
   .glow-btn, .glow-btn::after { transition: none; }
 }
 
-/* Arcon's main button: ink to blueprint blue, with a light that runs across on hover. */
+/* Studio's main button: ink to blueprint blue, with a light that runs across on hover. */
 .glow-btn {
   position: relative;
   display: inline-flex;

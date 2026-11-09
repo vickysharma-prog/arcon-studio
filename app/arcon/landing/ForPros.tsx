@@ -7,7 +7,7 @@ import { Reveal } from "@arcon/fx/Motion";
 import { tick, transition } from "@arcon/fx/sfx";
 
 // For pros: an AI design partner and the software to run every project, shown as it works. Each capability says
-// whether Arcon's AI does it for you or it's something you run in Arcon, beside a small live screen of it.
+// whether Studio's AI does it for you or it's something you run in Arcon Studio, beside a small live screen of it.
 // Every name and number on the screens is a sample.
 
 type Kind = "AI" | "Manage";
@@ -15,11 +15,11 @@ type Cap = { kind: Kind; title: string; body: string; screen: () => ReactNode };
 type Who = "architects" | "builders";
 
 const ARCHITECTS: Cap[] = [
-  { kind: "AI", title: "Your client's taste, read before you meet", body: "Send a link: the client answers at home in English, Hindi or Hinglish, and Arcon reads their style from the films, places and brands they love.", screen: () => <Taste /> },
+  { kind: "AI", title: "Your client's taste, read before you meet", body: "Send a link: the client answers at home in English, Hindi or Hinglish, and Arcon Studio reads their style from the films, places and brands they love.", screen: () => <Taste /> },
   { kind: "AI", title: "Three plans on day one", body: "The layout engine fits their rooms to the plot three ways, each saying what it does best and what it gives up. A 3D walkthrough by day and night comes with them.", screen: () => <Plans /> },
   { kind: "AI", title: "Changes by chat, priced at once", body: "Type \"make the kitchen bigger\". The plan, the budget and the drawings follow in seconds; the rest of the plan gives way, never past the plot.", screen: () => <Chat /> },
   { kind: "Manage", title: "Approvals and change requests on record", body: "Send for review; the client approves a version, which locks it. Any later change goes to them with what it does to the cost.", screen: () => <Approve /> },
-  { kind: "Manage", title: "Fees by milestone", body: "Set out your fee once; Arcon splits it by stage. Bill each one, the client marks it paid, you confirm. Overdue ones come first.", screen: () => <Ledger rows={[["Design", "$6,000"], ["Approval of the final design", "$8,000"], ["Handover", "$6,000"]]} /> },
+  { kind: "Manage", title: "Fees by milestone", body: "Set out your fee once; Arcon Studio splits it by stage. Bill each one, the client marks it paid, you confirm. Overdue ones come first.", screen: () => <Ledger rows={[["Design", "$6,000"], ["Approval of the final design", "$8,000"], ["Handover", "$6,000"]]} /> },
   { kind: "Manage", title: "Your whole studio, one pipeline", body: "Every client by stage, what's waiting on you, requests from owners who found you by taste match, your logo on every drawing.", screen: () => <Pipeline /> },
 ];
 
@@ -56,7 +56,7 @@ export function ForPros() {
         <Reveal className="mx-auto max-w-3xl text-center">
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-brand">For architects and builders</p>
           <h2 className="mt-3 font-serif text-4xl leading-tight sm:text-5xl">An AI design partner, and the software to run every project.</h2>
-          <p className="mt-4 text-lg text-ink-soft">Arcon&apos;s AI does the slow first weeks: reading your client, drawing the options, pricing every change. Then you run the project in one place, from the first link to the handover.</p>
+          <p className="mt-4 text-lg text-ink-soft">Studio&apos;s AI does the slow first weeks: reading your client, drawing the options, pricing every change. Then you run the project in one place, from the first link to the handover.</p>
         </Reveal>
 
         <motion.div className="mt-10 flex justify-center" onViewportEnter={() => setSeen(true)} viewport={{ once: true }}>
@@ -115,7 +115,7 @@ export function ForPros() {
                 <span className="h-2.5 w-2.5 rounded-full bg-line" />
                 <span className="h-2.5 w-2.5 rounded-full bg-line" />
                 <span className="ml-2 font-mono text-[10px] uppercase tracking-[0.25em] text-ink-soft">{who === "architects" ? "Studio" : "Sites"} · sample</span>
-                <span className={`ml-auto rounded-full px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${cap.kind === "AI" ? "bg-brand/10 text-brand" : "bg-leaf/10 text-leaf"}`}>{cap.kind === "AI" ? "Arcon's AI" : "You manage"}</span>
+                <span className={`ml-auto rounded-full px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${cap.kind === "AI" ? "bg-brand/10 text-brand" : "bg-leaf/10 text-leaf"}`}>{cap.kind === "AI" ? "Studio's AI" : "You manage"}</span>
               </div>
               <div className="relative h-[22rem] p-5">
                 <AnimatePresence mode="wait">
@@ -160,7 +160,7 @@ function Taste() {
           </motion.span>
         ))}
       </div>
-      <motion.p {...appear(3)} className="mt-6 font-mono text-[10px] uppercase tracking-[0.25em] text-brand">Arcon reads</motion.p>
+      <motion.p {...appear(3)} className="mt-6 font-mono text-[10px] uppercase tracking-[0.25em] text-brand">Arcon Studio reads</motion.p>
       <div className="mt-2 flex flex-wrap gap-1.5">
         {words.map((w, i) => (
           <motion.span key={w} {...appear(4 + i * 0.5)} className="rounded-full bg-brand/10 px-2.5 py-0.5 font-mono text-xs text-brand">
@@ -467,7 +467,7 @@ function Handover() {
   );
 }
 
-// What happens to what people tell Arcon, said plainly.
+// What happens to what people tell Arcon Studio, said plainly.
 export function Trust() {
   const items = [
     { title: "No tracking, no ads", body: "One essential cookie keeps your project. Nothing follows you around the web." },

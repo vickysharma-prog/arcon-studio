@@ -33,7 +33,7 @@ export function toDxf(layout: Layout, title: string, ex: Exterior = PLAIN): stri
     const ox = i * (W + GAP);
     const flip = (y: number) => D - y;
     body += text("TITLE", ox, D + 1.2, 0.5, `${title} - ${f.level === 0 ? "Ground floor" : "Upstairs"}`);
-    body += text("TITLE", ox, -1.2, 0.3, "Made with Arcon - Spaces designed around who you are");
+    body += text("TITLE", ox, -1.2, 0.3, "Made with Arcon Studio - Spaces designed around who you are");
     // the building outline
     for (const [x1, y1, x2, y2] of [[0, 0, W, 0], [W, 0, W, D], [W, D, 0, D], [0, D, 0, 0]]) body += line("WALLS", ox + x1, y1, ox + x2, y2);
     for (const s of f.spaces) {

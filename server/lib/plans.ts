@@ -2,7 +2,7 @@ import { fitNeeds, optionsFor, templateFor, toProgram } from "../../engine/desig
 import type { Layout, Program, Shell, SpaceType } from "../../engine/layout/schema.ts";
 import type { Project } from "../../engine/project/store.ts";
 
-// Plan options for a project, the same way Arcon draws them when the model is busy: the tested program for its kind
+// Plan options for a project, the same way Arcon Studio draws them when the model is busy: the tested program for its kind
 // of space, fitted to the interview; if that won't lay out, the template as it is. Pure, so it is tested directly.
 
 export type Drafted = { program: Program; options: Layout[] } | { error: string };

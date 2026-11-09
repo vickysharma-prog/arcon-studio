@@ -20,7 +20,7 @@ test("a DXF with every room, door and window, and both floors", () => {
   const openings = house.floors.flatMap((f) => f.openings).length;
   assert.equal((dxf.match(/\n8\nDOORS\n|\n8\nWINDOWS\n/g) ?? []).length, openings);
   assert.ok(dxf.includes("The Pune house - Ground floor") && dxf.includes("The Pune house - Upstairs"));
-  assert.ok(dxf.includes("Made with Arcon"));
+  assert.ok(dxf.includes("Made with Arcon Studio"));
 });
 
 test("names can't break the file", () => {

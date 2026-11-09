@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// The shapes Studio reads from Arcon and keeps itself. Each one is an action's outputSchema too, so the UI, the agent
+// The shapes Studio reads from Arcon Studio and keeps itself. Each one is an action's outputSchema too, so the UI, the agent
 // and any external caller get exactly this.
 
 export const ChangeInput = z

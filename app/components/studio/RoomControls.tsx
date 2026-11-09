@@ -11,7 +11,7 @@ import { ADDABLE, areaText, BIGGER, SMALLER } from "@/lib/plan";
 import { failureText } from "./Changes";
 import type { Change, Design } from "./types";
 
-// The person's own controls. Each one calls the same change Arcon makes from its own editor, against the version on
+// The person's own controls. Each one calls the same change Arcon Studio makes from its own editor, against the version on
 // screen, so a change that raced another one is refused instead of overwriting it.
 
 export function RoomControls({ design, selected, onSelect }: { design: Design; selected: string | null; onSelect: (id: string | null) => void }) {

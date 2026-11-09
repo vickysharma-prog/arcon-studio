@@ -37,7 +37,7 @@ test("areas are in square metres to one decimal, and a closed kitchen says so", 
   assert.equal("open" in v.rooms.find((r) => r.id === "living")!, false);
 });
 
-test("the view carries the version, role, concept and a link back to Arcon", () => {
+test("the view carries the version, role, concept and a link back to Arcon Studio", () => {
   const v = designView(project, layout, "architect", true, 7, true, "https://arcon.example");
   assert.equal(v.version, 7);
   assert.equal(v.role, "architect");

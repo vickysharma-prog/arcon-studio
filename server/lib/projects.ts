@@ -9,7 +9,7 @@ import { budgetView, designView } from "../../engine/studio/view.ts";
 import { chosenOf, versionOf } from "../../engine/workspace/apply.ts";
 
 // What every project action needs: the signed-in architect, their project (never anyone else's), and the reads the
-// UI and the agent share, worked out by Arcon's engine on Studio's own data.
+// UI and the agent share, worked out by Studio's engine on Studio's own data.
 
 export const PROJECT_ERRORS = ["not_signed_in", "not_found", "no_plan", "done", "stale", "does_not_fit", "approved", "nothing_to_undo", "bad_change"] as const;
 export type ProjectError = (typeof PROJECT_ERRORS)[number];

@@ -108,7 +108,7 @@ export function WalkthroughStep({
     setTimeout(() => {
       const scene = box.current?.querySelector("canvas");
       if (!scene || typeof MediaRecorder === "undefined") return;
-      // The video carries the "Made with Arcon" footer: each frame of the 3D view is copied onto a canvas with it.
+      // The video carries the "Made with Arcon Studio" footer: each frame of the 3D view is copied onto a canvas with it.
       const canvas = document.createElement("canvas");
       canvas.width = scene.width;
       canvas.height = scene.height;
@@ -131,7 +131,7 @@ export function WalkthroughStep({
         const blob = new Blob(chunks, { type: rec.mimeType });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = `${(title ?? "Arcon").replace(/[^\w\s-]+/g, "").trim() || "Arcon"} walkthrough.${rec.mimeType.includes("mp4") ? "mp4" : "webm"}`;
+        a.download = `${(title ?? "Arcon Studio").replace(/[^\w\s-]+/g, "").trim() || "Arcon Studio"} walkthrough.${rec.mimeType.includes("mp4") ? "mp4" : "webm"}`;
         a.click();
         setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
       };

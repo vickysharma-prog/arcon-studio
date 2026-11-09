@@ -26,7 +26,7 @@ type Message = {
 type Thread = {
   /** a change to the approved design, waiting for approval */
   change?: { from: number; to: number; notes: string[]; cost: string; canDecide: boolean } | null;
-  /** the client isn't on Arcon: the pro records their answer */
+  /** the client isn't on Arcon Studio: the pro records their answer */
   inPerson?: string | null;
   messages: Message[];
   me: string | null;

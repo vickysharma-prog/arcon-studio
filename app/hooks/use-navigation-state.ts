@@ -18,7 +18,7 @@ export interface NavigationState {
   path?: string;
   publicPath?: string;
   threadId?: string;
-  /** The Arcon project open on screen, so the agent knows what "this design" means. */
+  /** The Arcon Studio project open on screen, so the agent knows what "this design" means. */
   projectId?: string;
 }
 

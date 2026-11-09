@@ -1,4 +1,4 @@
-// How every Arcon agent writes to people, and a checker the evals run on every reply.
+// How every Arcon Studio agent writes to people, and a checker the evals run on every reply.
 
 export const VOICE_RULES = `# Voice
 

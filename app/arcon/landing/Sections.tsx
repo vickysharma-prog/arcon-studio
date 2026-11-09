@@ -27,7 +27,7 @@ function Heading({ eyebrow, title, sub }: { eyebrow: string; title: ReactNode; s
 
 const STEPS = [
   { n: "01", title: "Sit with your client", body: "Run the interview together: who lives there, how they live, the budget. Typed or spoken." },
-  { n: "02", title: "Read their style", body: "A look, a feel and three things they love. Arcon names their style and says where each choice came from." },
+  { n: "02", title: "Read their style", body: "A look, a feel and three things they love. Arcon Studio names their style and says where each choice came from." },
   { n: "03", title: "Choose a plan", body: "Three floor plans for their plot, each clear about what it does best and what it gives up." },
   { n: "04", title: "Walk them through it", body: "Step inside in 3D together, by day or by night, furnished in their style." },
   { n: "05", title: "Refine with the agent", body: "Ask for changes in plain words. The agent proposes, draws it and prices it; you approve." },
@@ -145,7 +145,7 @@ export function TasteFlow() {
         <Heading
           eyebrow="Taste becomes space"
           title="What your client loves, turned into design."
-          sub="Arcon finds a style in the things your client already loves, then shows both of you why every choice was made."
+          sub="Arcon Studio finds a style in the things your client already loves, then shows both of you why every choice was made."
         />
         <Reveal className="mt-14 hidden md:block">
           <div onMouseLeave={() => setHeld(false)}>
@@ -183,7 +183,7 @@ export function TasteFlow() {
               </button>
             ))}
           </Column>
-          <Column title="Arcon reads">
+          <Column title="Arcon Studio reads">
             <div className="relative flex flex-wrap justify-center gap-2.5 rounded-3xl border border-brand/30 bg-paper/70 px-5 py-8 shadow-[0_0_80px_-30px_hsl(var(--brand))]">
               {/* the taste engine at the centre, pulsing */}
               <span aria-hidden className="pointer-events-none absolute inset-0 rounded-3xl bg-[radial-gradient(circle_at_center,color-mix(in_srgb,hsl(var(--brand))_14%,transparent),transparent_70%)] animate-pulse motion-reduce:animate-none" />
@@ -199,7 +199,7 @@ export function TasteFlow() {
               ))}
             </div>
           </Column>
-          <Column title="Arcon designs">
+          <Column title="Arcon Studio designs">
             {MAKES.map((m, i) => (
               <motion.p
                 key={m}
@@ -322,9 +322,9 @@ function Cube() {
 
 const AUDIENCE = [
   { title: "Homeowners", body: "Planning a new build or a big renovation: see it, change it and price it before anyone builds it, then follow the build." },
-  { title: "Cafés, hotels, shops and offices", body: "Arcon asks how you run the place, reads your neighbourhood and plans for the crowd you want." },
+  { title: "Cafés, hotels, shops and offices", body: "Arcon Studio asks how you run the place, reads your neighbourhood and plans for the crowd you want." },
   { title: "Architects and designers", body: "Studio tools: new clients in person or by link, three options on day one, your branding on every drawing, fees by milestone." },
-  { title: "Builders", body: "Run the site in Arcon: phases, crew, materials and photo updates your client can follow, while your costs stay yours." },
+  { title: "Builders", body: "Run the site in Arcon Studio: phases, crew, materials and photo updates your client can follow, while your costs stay yours." },
 ];
 
 export function Audience() {
@@ -343,7 +343,7 @@ export function Audience() {
   );
 }
 
-// The size of what Arcon is for, each number with where it comes from.
+// The size of what Arcon Studio is for, each number with where it comes from.
 const MARKET = [
   { value: 518, prefix: "$", suffix: "B", what: "Americans' spending on improving their homes in 2026", source: "Harvard Joint Center for Housing Studies, LIRA, April 2026", href: "https://www.jchs.harvard.edu/press-releases/remodeling-growth-set-downshift-late-2026" },
   { value: 26, prefix: "", suffix: "M", what: "US homeowner households spent on improving their homes in 2023, almost 3 in 10 owners", source: "Harvard Joint Center for Housing Studies, Improving America's Housing 2025", href: "https://www.jchs.harvard.edu/improving-americas-housing-2025" },
@@ -355,7 +355,7 @@ export function Market() {
       <div className="grid gap-4 rounded-3xl border border-line bg-paper-raised/60 p-6 sm:p-8 md:grid-cols-[1.2fr_1fr_1fr] md:items-center">
         <Reveal>
           <Eyebrow>Why it matters</Eyebrow>
-          <p className="mt-3 font-serif text-3xl leading-tight">Every dollar goes into a space someone lives or works in. Arcon designs it around who they are.</p>
+          <p className="mt-3 font-serif text-3xl leading-tight">Every dollar goes into a space someone lives or works in. Arcon Studio designs it around who they are.</p>
         </Reveal>
         {MARKET.map((m, i) => (
           <Reveal key={m.what} delay={0.1 + i * 0.08} className="border-line md:border-l md:pl-6">
@@ -522,7 +522,7 @@ export function Footer() {
           <p className="mt-3 max-w-xs text-sm text-ink-soft">The architect&apos;s studio, with an agent that knows your client&apos;s taste.</p>
           <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-brand">Your client’s taste, drawn in minutes</p>
         </div>
-        <nav aria-label="Arcon" className="grid content-start gap-2 text-sm">
+        <nav aria-label="Arcon Studio" className="grid content-start gap-2 text-sm">
           <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-soft">Arcon Studio</p>
           <Link href="/projects" className="w-fit hover:text-brand">Open your studio</Link>
           <a href="/about#how" className="w-fit hover:text-brand">How it works</a>

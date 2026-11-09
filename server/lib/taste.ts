@@ -29,7 +29,7 @@ export function signalsOf(picks: TastePick[]): TasteSignal[] {
   return out;
 }
 
-// The look and the feel the client chose in the interview become the taste profile Arcon's engine reads: the style
+// The look and the feel the client chose in the interview become the taste profile Studio's engine reads: the style
 // family it styles the design in, and the moods that set light and planting. Each is credited to the choice itself,
 // never to something the client didn't say.
 
@@ -62,7 +62,7 @@ export function choiceSignals(look: unknown, feel: unknown): TasteSignal[] {
   return out;
 }
 
-/** The taste profile Arcon's engine reads, from the look and feel the client chose. */
+/** The taste profile Studio's engine reads, from the look and feel the client chose. */
 export function profileOf(look: unknown, feel: unknown): Profile {
   const tags: Profile["tags"] = [];
   if (isLook(look)) {

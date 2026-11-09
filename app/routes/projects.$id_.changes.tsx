@@ -82,7 +82,7 @@ function Workspace({ id }: { id: string }) {
   const floors = floorsOf(d.spaces);
   const level = floors.includes(floor) ? floor : (floors[0] ?? 0);
   const spaces = proposal?.after ?? d.spaces;
-  // Undo steps back the last change made here, once: not an undo, and not something changed in Arcon since.
+  // Undo steps back the last change made here, once: not an undo, and not something changed in Arcon Studio since.
   const last = rows.find((r) => r.status === "applied");
   const lastWasMine = last?.kind === "change" && last.resultVersion === d.version;
 

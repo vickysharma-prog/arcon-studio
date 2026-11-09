@@ -66,7 +66,7 @@ test("languages: greeting, listening and voice per language; Devanagari always r
   assert.equal(voiceFor("What are we designing?", "en"), "en");
 });
 
-test("tappable answers come from Arcon's latest question, and go once the user replies", async () => {
+test("tappable answers come from Studio's latest question, and go once the user replies", async () => {
   const { pendingChoices, joinPicks, activity } = await import("./view.ts");
   const ask = (input: unknown) => ({ id: "a", role: "assistant" as const, parts: [{ type: "dynamic-tool", toolName: "offer_choices", state: "input-available", input }, { type: "text", text: "New build or renovation?" }] });
   assert.deepEqual(pendingChoices([ask({ choices: ["New build", "Renovation"] })]), { choices: ["New build", "Renovation"], multi: false, hint: null });

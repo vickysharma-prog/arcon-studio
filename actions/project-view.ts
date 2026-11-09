@@ -4,7 +4,7 @@ import { z } from "zod";
 import { ownProject, PROJECT_ERRORS } from "../server/lib/projects.js";
 import { projectView } from "../server/lib/view.js";
 
-// The whole project for Arcon's project screens in Studio: brief, plans, chosen plan, interview, status.
+// The whole project for Studio's project screens in Studio: brief, plans, chosen plan, interview, status.
 export default defineAction({
   description: "Read the whole project as the project screens show it. For the screen, not the agent.",
   schema: z.object({ id: z.string().min(1).describe("Project id") }),

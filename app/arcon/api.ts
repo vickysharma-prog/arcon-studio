@@ -1,8 +1,8 @@
 import { callAction } from "@agent-native/core/client/hooks";
 
-// Arcon's screens talk to /api/... routes. In Studio every one of those is an Agent-Native action, so the same
+// Studio's screens talk to /api/... routes. In Studio every one of those is an Agent-Native action, so the same
 // screens run unchanged on Studio's own engine and data, and the agent reads and writes through the same actions.
-// apiFetch answers like fetch (a Response with Arcon's JSON and status) for each route Studio keeps; the routes
+// apiFetch answers like fetch (a Response with Studio's JSON and status) for each route Studio keeps; the routes
 // Studio leaves out (the builder's site, team invites, payments to unlock, outside taste services) answer 404.
 
 type Call = { action: string; method?: "GET" | "POST"; args: Record<string, unknown>; then?: (out: unknown, args: Record<string, unknown>) => Promise<unknown> };
@@ -28,7 +28,7 @@ export const ROUTES: Route[] = [
   { method: "POST", pattern: /^\/api\/projects\/([^/]+)\/review$/, to: (m, b) => ({ action: "review-design", args: { id: m[1], action: b.action, ...(b.note ? { note: b.note } : {}) } }) },
 ];
 
-/** Routes Arcon's screens may call that Studio deliberately doesn't have. */
+/** Routes Studio's screens may call that Studio deliberately doesn't have. */
 export const LEFT_OUT = [
   /\/api\/projects\/[^/]+\/(art|neighbourhood|unlock|team|fees|import|quote|site|movein|handover)(\/|$|\?)/,
   /\/api\/projects\/[^/]+\/thread\/files/,
@@ -43,7 +43,7 @@ export async function apiFetch(input: string, init: RequestInit = {}): Promise<R
   const route = ROUTES.find((r) => r.method === method && r.pattern.test(url.pathname));
   if (!route) {
     if (LEFT_OUT.some((p) => p.test(url.pathname + url.search))) return json({ error: "Not in Studio." }, 404);
-    throw new Error(`Arcon route not mapped in Studio: ${method} ${url.pathname}`);
+    throw new Error(`Arcon Studio route not mapped in Studio: ${method} ${url.pathname}`);
   }
   let body: Record<string, unknown> = {};
   if (typeof init.body === "string" && init.body) body = JSON.parse(init.body) as Record<string, unknown>;
@@ -51,7 +51,7 @@ export async function apiFetch(input: string, init: RequestInit = {}): Promise<R
   try {
     let out: unknown = await callAction(call.action as never, call.args as never, call.method ? { method: call.method } : undefined);
     if (call.then) out = await call.then(out, call.args);
-    // An action that answers with Arcon's own outcome ({ status, body }) keeps that status.
+    // An action that answers with Studio's own outcome ({ status, body }) keeps that status.
     if (out && typeof out === "object" && "status" in out && "body" in out && typeof (out as { status: unknown }).status === "number") {
       const o = out as { status: number; body: unknown };
       return json(o.body, o.status);

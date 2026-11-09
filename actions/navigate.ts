@@ -7,7 +7,7 @@ export default defineAction({
     "Navigate the UI to a specific view or path. Writes a navigate command to application state which the UI reads and auto-deletes.",
   schema: z.object({
     view: z.string().optional().describe('View to open: "projects" (the list), "project" (one design, with projectId), "chat", "home" or "settings"'),
-    projectId: z.string().optional().describe('Arcon project id, with view "project"'),
+    projectId: z.string().optional().describe('Arcon Studio project id, with view "project"'),
     path: z.string().optional().describe("URL path to navigate to"),
     threadId: z.string().optional().describe("Chat thread ID to open"),
   }),

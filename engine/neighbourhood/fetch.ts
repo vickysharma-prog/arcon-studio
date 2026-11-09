@@ -10,7 +10,7 @@ import { areaRank, categoriesFor, CROWDS, isKind, onePerChain, lookOf, NEAR, pla
 /** Where an address is, from OpenStreetMap. Only the address is sent; called once per project address. */
 export async function geocode(location: string): Promise<{ lat: number; lon: number } | null> {
   const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(location)}`;
-  const res = await fetch(url, { headers: { "User-Agent": "Arcon/0.1 (arcon-ten.vercel.app)" }, signal: AbortSignal.timeout(6000) });
+  const res = await fetch(url, { headers: { "User-Agent": "Arcon Studio/0.1 (arcon-ten.vercel.app)" }, signal: AbortSignal.timeout(6000) });
   if (!res.ok) return null;
   const [hit] = (await res.json()) as { lat: string; lon: string }[];
   return hit ? { lat: Number(hit.lat), lon: Number(hit.lon) } : null;

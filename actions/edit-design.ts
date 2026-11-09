@@ -5,8 +5,8 @@ import { ChangeSchema, chosenOf, editDesign } from "../engine/workspace/apply.ts
 import { suggestions, understand } from "../engine/workspace/understand.ts";
 import { architectOf, ownProject, PROJECT_ERRORS } from "../server/lib/projects.js";
 
-// Make changes, as Arcon's workspace sends them: a change from a control, words typed in the box, or an undo. Words
-// Arcon's reader can't place go back with suggestions; the agent beside it handles anything harder.
+// Make changes, as Studio's workspace sends them: a change from a control, words typed in the box, or an undo. Words
+// Studio's reader can't place go back with suggestions; the agent beside it handles anything harder.
 export default defineAction({
   description: "Apply the architect's own change from the workspace: a structured change, typed words, or an undo. For the screen; the agent proposes instead.",
   schema: z.object({

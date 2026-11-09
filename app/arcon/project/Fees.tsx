@@ -129,7 +129,7 @@ export function Fees({ projectId, location }: { projectId: string; location?: st
         </ul>
       ) : (
         <div className="mt-3">
-          <p className="text-sm text-ink-soft">Set out your fee once: Arcon splits it into {data.kind === "builder" && data.phases?.length ? "a 10% deposit, one part per phase of your site (by how long each runs) and 10% on handover, each due as it finishes" : splitWords(data.kind ?? "architect")}. Change any name or amount before you save. Your client sees what&apos;s due and when.</p>
+          <p className="text-sm text-ink-soft">Set out your fee once: Arcon Studio splits it into {data.kind === "builder" && data.phases?.length ? "a 10% deposit, one part per phase of your site (by how long each runs) and 10% on handover, each due as it finishes" : splitWords(data.kind ?? "architect")}. Change any name or amount before you save. Your client sees what&apos;s due and when.</p>
           <div className="mt-3 flex flex-wrap gap-2">
             <select value={currency} onChange={(e) => setCurrency(e.target.value)} aria-label="Currency" className="rounded-full border border-line bg-paper px-3 py-2 text-sm">
               {CURRENCIES.map((c) => (

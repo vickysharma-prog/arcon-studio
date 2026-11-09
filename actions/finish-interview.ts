@@ -10,7 +10,7 @@ import { choiceSignals, profileOf, signalsOf } from "../server/lib/taste.js";
 
 const errors = defineActionErrors(...PROJECT_ERRORS, "not_waiting", "incomplete");
 
-// The interview's last step: every answer is checked against Arcon's script and becomes the project, ready to
+// The interview's last step: every answer is checked against Studio's script and becomes the project, ready to
 // design. No model runs here. The three things the client loves are kept as the client named them.
 export default defineAction({
   description: "Save a finished interview to its project, so it can be designed. The answers come from the interview screen.",

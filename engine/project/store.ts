@@ -5,7 +5,7 @@ import { projects, versions } from "../db/schema.ts";
 import type { Layout, Program, SpaceType } from "../layout/schema.ts";
 import type { Profile } from "../qloo/taste.ts";
 
-// A project in Arcon Studio: one architect's design for one client. Same shape and functions as Arcon's store, so
+// A project in Arcon Studio: one architect's design for one client. Same shape and functions as Studio's store, so
 // the engine reads it unchanged; here it lives in Studio's own database and always belongs to the architect who made
 // it (owner_id is the architect's email).
 

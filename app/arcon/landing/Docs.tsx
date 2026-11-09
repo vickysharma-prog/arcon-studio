@@ -52,7 +52,7 @@ const SECTIONS: Section[] = [
     body: (
       <>
         <p>
-          Arcon Studio is the architect&apos;s own studio. You sit with your client and run Arcon&apos;s interview together; Arcon turns their answers into their style, three floor plans, a furnished 3D home, a budget in their currency and a drawings pack. An agent works beside you the whole time: it reads the project, drafts, and proposes changes, and nothing changes until you approve.
+          Arcon Studio is the architect&apos;s own studio. You sit with your client and run Studio&apos;s interview together; Arcon Studio turns their answers into their style, three floor plans, a furnished 3D home, a budget in their currency and a drawings pack. An agent works beside you the whole time: it reads the project, drafts, and proposes changes, and nothing changes until you approve.
         </p>
         <Steps
           items={[
@@ -170,7 +170,7 @@ const SECTIONS: Section[] = [
     title: "From taste to a design",
     body: (
       <>
-        <p>Arcon&apos;s design engine reads the client&apos;s look and feel into a style: a palette, materials, light and plants, each naming the answer it came from. The room program comes from the kind of space and the household, fitted to the plot, and the layout engine draws it in three different ways.</p>
+        <p>Studio&apos;s design engine reads the client&apos;s look and feel into a style: a palette, materials, light and plants, each naming the answer it came from. The room program comes from the kind of space and the household, fitted to the plot, and the layout engine draws it in three different ways.</p>
         <p className="mt-3">The 3D is built from the same plan, furnished in the client&apos;s style. The budget prices every room at the client&apos;s finish level with researched rates for their market, and the drawings pack draws the same plan with dimensions, elevations and schedules.</p>
       </>
     ),
@@ -196,10 +196,10 @@ const SECTIONS: Section[] = [
     title: "Developer guide",
     body: (
       <>
-        <p>Arcon Studio is built on Agent-Native (React Router, Nitro, Drizzle and Postgres). Every action in actions/ is a button in the app, a tool for the built-in agent, and an endpoint for other agents over MCP and A2A. Arcon&apos;s design engine lives in engine/, with its tests beside each part.</p>
+        <p>Arcon Studio is built on Agent-Native (React Router, Nitro, Drizzle and Postgres). Every action in actions/ is a button in the app, a tool for the built-in agent, and an endpoint for other agents over MCP and A2A. Studio&apos;s design engine lives in engine/, with its tests beside each part.</p>
         <Code>{`actions/   every action: the app's buttons and the agent's tools
-app/       routes and screens; app/arcon holds Arcon's screens
-engine/    Arcon's design engine: layout, style, 3D, budget, drawings
+app/       routes and screens; app/arcon holds Studio's screens
+engine/    Studio's design engine: layout, style, 3D, budget, drawings
 server/    the database, the agent's instructions and plugins`}</Code>
         <p className="mt-6 font-medium">Run it</p>
         <Code>{`pnpm install

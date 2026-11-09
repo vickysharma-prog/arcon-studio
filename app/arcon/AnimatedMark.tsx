@@ -9,7 +9,7 @@ const SEEDS = seeds();
 export function AnimatedMark({ size = 160, growing = true }: { size?: number; growing?: boolean }) {
   const still = useReducedMotion();
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${SIZE} ${SIZE}`} role="img" aria-label="Arcon is working">
+    <svg width={size} height={size} viewBox={`0 0 ${SIZE} ${SIZE}`} role="img" aria-label="Arcon Studio is working">
       {SEEDS.map((s, i) => (
         <motion.circle
           key={i}

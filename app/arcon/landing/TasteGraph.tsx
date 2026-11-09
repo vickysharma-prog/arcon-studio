@@ -86,7 +86,7 @@ export function TasteGraph({ loves, tags, makes, links, on, onPick }: { loves: L
         {!still && <span aria-hidden className="absolute h-28 w-28 animate-ping rounded-full border border-brand/30" style={{ animationDuration: "2.6s" }} />}
         <div className="relative grid h-24 w-24 place-items-center rounded-full border border-brand/50 bg-paper text-center shadow-[0_0_60px_-10px_hsl(var(--brand))]">
           <span className="font-mono text-[9px] uppercase leading-tight tracking-[0.2em] text-brand">
-            Arcon
+            Arcon Studio
             <br />
             taste AI
           </span>
@@ -131,7 +131,7 @@ export function TasteGraph({ loves, tags, makes, links, on, onPick }: { loves: L
         );
       })}
 
-      {/* what Arcon designs */}
+      {/* what Arcon Studio designs */}
       {makes.map((m, i) => {
         const lit = link.makes.includes(i);
         return (

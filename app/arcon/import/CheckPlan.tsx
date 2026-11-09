@@ -20,7 +20,7 @@ const FT = 0.3048;
 
 type Props = { id: string; imported: Imported; units: "imperial" | "metric"; onDone: (project: unknown) => void };
 
-// After an upload: show what Arcon read, let the user fix names and types (and the size), answer anything the
+// After an upload: show what Arcon Studio read, let the user fix names and types (and the size), answer anything the
 // reader wasn't sure of, and name a few things they love so the design can be styled to their taste.
 export function CheckPlan({ id, imported, units, onDone }: Props) {
   const toUser = (m: number) => Math.round((units === "imperial" ? m / FT : m) * 10) / 10;

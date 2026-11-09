@@ -12,7 +12,7 @@ import type { Layout } from "@engine/layout/schema";
 
 // Arcon Studio's front page, kept short and clean: one big line, then the scroll brings the work in around it (a fan
 // of real plans, the 3D house and the client's style), then the app itself holds the screen while a project goes
-// from interview to approval. The pictures of the house are stills of Arcon's own 3D, so nothing heavy runs here.
+// from interview to approval. The pictures of the house are stills of Studio's own 3D, so nothing heavy runs here.
 
 function useSamplePlans(): Layout[] {
   return useMemo(() => {

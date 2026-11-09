@@ -28,7 +28,7 @@ test("the user's size beats the drawing's, and unknown kinds map to known ones",
   assert.deepEqual(questions, ["Is Room 3 a bedroom or a study?"]);
 });
 
-test("with no size and no scale on the drawing, Arcon asks for one", () => {
+test("with no size and no scale on the drawing, Arcon Studio asks for one", () => {
   const { questions } = fromModel(raw, { spaceType: "house", units: "metric" });
   assert.match(questions[0], /How wide and how deep .* metres/);
 });

@@ -4,7 +4,7 @@ import { changes } from "../db/schema.js";
 import type { Change, ChangeRow } from "./shapes.js";
 
 // The Studio feed for a project. A proposal applies once and only against the version it was worked out on: the claim
-// below moves it from pending to applying in one statement, so two approvals can never both reach Arcon.
+// below moves it from pending to applying in one statement, so two approvals can never both reach Arcon Studio.
 
 type Row = typeof changes.$inferSelect;
 const toRow = (r: Row): ChangeRow => ({

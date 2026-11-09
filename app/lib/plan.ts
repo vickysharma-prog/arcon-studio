@@ -1,4 +1,4 @@
-// Pure helpers for drawing an Arcon plan in Studio. Geometry is in metres, as Arcon keeps it.
+// Pure helpers for drawing an Arcon Studio plan in Studio. Geometry is in metres, as Arcon Studio keeps it.
 
 export type Space = { id: string; name: string; kind: string; floor: number; area: number; rect: { x: number; y: number; w: number; h: number }; zone: string; open?: boolean | undefined };
 
@@ -15,7 +15,7 @@ export const ADDABLE = [
   { kind: "meeting", name: "Meeting room" },
 ] as const;
 
-/** Arcon's own step sizes for bigger and smaller. */
+/** Studio's own step sizes for bigger and smaller. */
 export const BIGGER = 1.25;
 export const SMALLER = 0.8;
 
@@ -29,7 +29,7 @@ export type Diff = { added: Set<string>; removed: Set<string>; changed: Set<stri
 
 /**
  * What a proposal does to the plan, room by room: new rooms, rooms gone, and rooms that grew, shrank, were renamed or
- * opened up. Arcon reflows the plan around a change, so a room that only shifted is not counted, nor a size change
+ * opened up. Arcon Studio reflows the plan around a change, so a room that only shifted is not counted, nor a size change
  * under 3% (rounding as the plan settles).
  */
 export function diffPlan(before: Space[], after: Space[]): Diff {

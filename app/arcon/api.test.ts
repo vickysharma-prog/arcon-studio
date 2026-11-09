@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import { LEFT_OUT, ROUTES } from "./api";
 
-// Every /api/... route Arcon's screens call is either answered by a Studio action or deliberately left out, so a
+// Every /api/... route Studio's screens call is either answered by a Studio action or deliberately left out, so a
 // screen never reaches for a route nobody answers.
 
 const files = (dir: string): string[] =>
@@ -23,7 +23,7 @@ const calls = files(path.join(__dirname)).flatMap((f) => {
   }));
 });
 
-describe("Arcon's routes in Studio", () => {
+describe("Studio's routes in Studio", () => {
   it("finds the screens' calls", () => expect(calls.length).toBeGreaterThan(20));
   it.each(calls)("$method $path ($file) is answered or left out on purpose", ({ path: p, method }) => {
     const routed = ROUTES.some((r) => r.method === method && r.pattern.test(p));

@@ -3,7 +3,7 @@ import { redirect } from "react-router";
 import { APP_TITLE } from "@/lib/app-config";
 
 export function meta() {
-  return [{ title: APP_TITLE }, { name: "description", content: "Work on your Arcon designs with an agent: it proposes, you approve." }];
+  return [{ title: APP_TITLE }, { name: "description", content: "Work on your Arcon Studio designs with an agent: it proposes, you approve." }];
 }
 
 export const loader = () => redirect("/projects");

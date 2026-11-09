@@ -52,9 +52,9 @@ export const QUESTIONS: Question[] = [
     stage: 0,
     kind: "choice",
     lead: w(
-      "Hi, I'm Arcon, your AI architect. Let's bring your dream project to life.",
-      "नमस्ते, मैं Arcon हूँ, आपका AI आर्किटेक्ट। चलिए आपके सपनों के प्रोजेक्ट को हकीकत बनाते हैं।",
-      "Hi, main Arcon hoon, aapka AI architect. Chalo aapke dream project ko reality banate hain.",
+      "Hi, I'm Arcon Studio, your AI architect. Let's bring your dream project to life.",
+      "नमस्ते, मैं Arcon Studio हूँ, आपका AI आर्किटेक्ट। चलिए आपके सपनों के प्रोजेक्ट को हकीकत बनाते हैं।",
+      "Hi, main Arcon Studio hoon, aapka AI architect. Chalo aapke dream project ko reality banate hain.",
     ),
     ask: w("What are we designing together?", "हम साथ में क्या डिज़ाइन कर रहे हैं?", "Hum saath mein kya design karein?"),
     choices: [

@@ -38,7 +38,7 @@ const save = (href: string, name: string) => {
   a.download = name;
   a.click();
 };
-const fileName = (s: string) => s.replace(/[^\w\s-]+/g, "").trim() || "Arcon";
+const fileName = (s: string) => s.replace(/[^\w\s-]+/g, "").trim() || "Arcon Studio";
 
 // The last step: everything to hand to an architect or builder, or to send to family. Hand-drawn sketches of the
 // design from a few angles (drawn here, in the browser, as pictures to save), the floor plans, a PDF pack with the
@@ -69,7 +69,7 @@ export function ExportStep({ p, tier, onWalkthrough }: { p: Project; tier: Tier 
   const drawing = shots.length < views.length ? shots.length : -1;
   const onShot = useCallback((png: string) => {
     okSound();
-    // Every sketch carries the Arcon watermark, in the downloads, the share sheet and the PDF.
+    // Every sketch carries the Arcon Studio watermark, in the downloads, the share sheet and the PDF.
     void stampPng(png)
       .catch(() => png)
       .then((stamped) => setShots((s) => [...s, stamped]));
@@ -97,7 +97,7 @@ export function ExportStep({ p, tier, onWalkthrough }: { p: Project; tier: Tier 
   const share = async () => {
     tick();
     const files = await Promise.all(shots.map(async (s, i) => new File([await (await fetch(s)).blob()], `sketch-${i + 1}.png`, { type: "image/png" })));
-    const text = `${title}: designed with Arcon${brief?.name ? `, in a ${brief.name} style` : ""}.`;
+    const text = `${title}: designed with Arcon Studio${brief?.name ? `, in a ${brief.name} style` : ""}.`;
     if (navigator.canShare?.({ files })) await navigator.share({ title, text, files }).catch(() => {});
     else if (navigator.share) await navigator.share({ title, text }).catch(() => {});
   };
@@ -263,12 +263,12 @@ export function ExportStep({ p, tier, onWalkthrough }: { p: Project; tier: Tier 
         </div>
         <div className="print-footer">
           <Mark size={18} />
-          <span className="font-serif text-base">{studio ? `Designed by ${studio.name} · Made with Arcon` : "Made with Arcon"}</span>
+          <span className="font-serif text-base">{studio ? `Designed by ${studio.name} · Made with Arcon Studio` : "Made with Arcon Studio"}</span>
           <span>· {TAGLINE} · AI architect</span>
         </div>
         <section className="print-page">
           {studio?.logo_url && <img src={studio.logo_url} alt="" className="mb-3 h-14 w-14 object-contain" />}
-          <p className="text-xs uppercase tracking-[0.3em]">{studio ? `${studio.name} · design pack` : "Arcon · design pack"}</p>
+          <p className="text-xs uppercase tracking-[0.3em]">{studio ? `${studio.name} · design pack` : "Arcon Studio · design pack"}</p>
           <h1 className="mt-2 font-serif text-5xl">{title}</h1>
           <p className="mt-2">
             {[p.site.location, brief?.name && `${brief.name} style`, area(cost.area, units), new Date().toLocaleDateString()].filter(Boolean).join(" · ")}

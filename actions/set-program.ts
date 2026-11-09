@@ -8,7 +8,7 @@ import { plansFromRooms } from "../server/lib/plans.js";
 
 const errors = defineActionErrors(...PROJECT_ERRORS, "incomplete", "does_not_fit");
 
-// The agent's room program for a project, laid out by Arcon's layout engine into plan options. The agent writes the
+// The agent's room program for a project, laid out by Studio's layout engine into plan options. The agent writes the
 // rooms from the interview (get-project); the geometry is always the engine's, never the model's.
 export default defineAction({
   description:

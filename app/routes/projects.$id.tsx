@@ -6,7 +6,7 @@ export function meta() {
   return [{ title: "Design · Arcon Studio" }];
 }
 
-// Arcon's project screens, running on Studio's engine and data through the same actions the agent uses.
+// Studio's project screens, running on Studio's engine and data through the same actions the agent uses.
 export default function ArconProjectRoute() {
   const { id = "" } = useParams();
   return (

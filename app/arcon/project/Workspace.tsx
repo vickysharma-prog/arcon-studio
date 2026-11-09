@@ -214,7 +214,7 @@ export function Workspace<P extends Project>({ p, tier, ticked, onProject, onDon
               <input
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="Tell Arcon what to change…"
+                placeholder="Tell Arcon Studio what to change…"
                 aria-label="What to change"
                 className="h-11 min-w-0 flex-1 rounded-full border border-line bg-paper px-4 outline-none focus:border-brand"
               />

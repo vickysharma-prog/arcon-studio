@@ -9,7 +9,7 @@ const agentNativePlugins = agentNative as unknown as (
 ) => any[];
 export default defineConfig({
   resolve: {
-    // Arcon's engine and the components ported from Arcon, and Next's two modules they used, answered by Studio.
+    // The design engine and its screens, and the two Next modules they use, answered here.
     alias: [
       { find: /^@engine\/(.*)$/, replacement: path.resolve(__dirname, "engine/$1") },
       { find: /^@arcon\/(.*)$/, replacement: path.resolve(__dirname, "app/arcon/$1") },
@@ -19,7 +19,7 @@ export default defineConfig({
     ],
   },
   optimizeDeps: {
-    // The 3D model and Arcon's motion: pre-bundled, so their CommonJS pieces (scheduler) load in dev.
+    // The 3D model and the motion library: pre-bundled, so their CommonJS pieces (scheduler) load in dev.
     include: [
       "scheduler",
       "three",

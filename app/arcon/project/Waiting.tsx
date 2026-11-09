@@ -39,7 +39,7 @@ export function Waiting({ id, whose, role }: { id: string; whose: string | null;
       <p className="mt-4 max-w-md text-lg text-ink-soft">
         {role === "client"
           ? "A few questions about you, your space and what you love. Your design is made from your answers."
-          : `Arcon designs ${name.split(" ")[0]}'s space from their answers and their taste. Answer together now, or send them a link to answer at home.`}
+          : `Arcon Studio designs ${name.split(" ")[0]}'s space from their answers and their taste. Answer together now, or send them a link to answer at home.`}
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <a href={`/start?project=${id}`} onClick={() => transition()} className="glow-btn rounded-full px-7 py-3">

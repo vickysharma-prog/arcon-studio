@@ -107,7 +107,7 @@ export function Neighbourhood({ id }: { id: string }) {
                   <Bar pct={avg} className="mt-3 h-1.5 bg-brand" />
                 </>
               ) : (
-                <p className="mt-2 text-sm text-ink-soft">Arcon reads the places below one by one.</p>
+                <p className="mt-2 text-sm text-ink-soft">Arcon Studio reads the places below one by one.</p>
               )}
             </HudCard>
             <HudCard className="p-5" delay={0.08}>
@@ -169,7 +169,7 @@ export function Neighbourhood({ id }: { id: string }) {
               </motion.li>
             ))}
           </ul>
-          {read.places.length === 0 && <p className="mt-4 text-sm text-ink-soft">Arcon knows few {read.what} around here yet.</p>}
+          {read.places.length === 0 && <p className="mt-4 text-sm text-ink-soft">Arcon Studio knows few {read.what} around here yet.</p>}
         </>
       )}
     </section>

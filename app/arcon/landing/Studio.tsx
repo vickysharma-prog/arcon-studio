@@ -4,7 +4,7 @@ import { useState, type ReactNode } from "react";
 import { Reveal } from "@arcon/fx/Motion";
 import { tick, transition } from "@arcon/fx/sfx";
 
-// The sections only Studio has: the agent beside the architect, and the judges' path. They sit between Arcon's own landing sections.
+// The sections only Studio has: the agent beside the architect, and the judges' path. They sit between Studio's own landing sections.
 
 const ACTIONS = [
   { id: "design-project", you: "Click “Design my space”", agent: "“Draw Priya three plans”", out: "Three plans from her interview, each with its reasons." },

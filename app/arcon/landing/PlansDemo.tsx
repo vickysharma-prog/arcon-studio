@@ -29,7 +29,7 @@ export function PlansDemo() {
       <Reveal className="mx-auto max-w-2xl text-center">
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-brand">Three plans, one plot</p>
         <h2 className="mt-3 font-serif text-4xl leading-tight sm:text-5xl">Every option says what it does best, and what it gives up.</h2>
-        <p className="mt-4 text-lg text-ink-soft">These are drawn right now by Arcon&apos;s layout engine for a sample one-storey family home. Your client's are drawn for their plot, their people and their taste.</p>
+        <p className="mt-4 text-lg text-ink-soft">These are drawn right now by Studio&apos;s layout engine for a sample one-storey family home. Your client's are drawn for their plot, their people and their taste.</p>
       </Reveal>
       <div className="mt-12 grid gap-4 md:grid-cols-3">
         {plans.map((p, i) => {

@@ -9,7 +9,7 @@ import { architectOf, ownProject, PROJECT_ERRORS } from "../server/lib/projects.
 
 const errors = defineActionErrors(...PROJECT_ERRORS, "not_waiting");
 
-// Review with the client, as Arcon's thread runs it: the architect sends the design for review, then records the
+// Review with the client, as Studio's thread runs it: the architect sends the design for review, then records the
 // client's answer from their meeting (approve, or changes), or their answer to a change on an approved design.
 export default defineAction({
   description: "Send a design to the client for review, or record the client's answer: approve, changes, change-approve or change-decline. The architect records it from the meeting.",

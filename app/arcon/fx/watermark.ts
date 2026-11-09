@@ -2,7 +2,7 @@
 
 import { seeds, SIZE } from "@engine/brand/seeds";
 
-// The Arcon watermark on everything people download: a footer with the mark, the name and the tagline. Painted on a
+// The Arcon Studio watermark on everything people download: a footer with the mark, the name and the tagline. Painted on a
 // 2D canvas, so the same code stamps sketches and video frames.
 
 export const TAGLINE = "Spaces designed around who you are";
@@ -42,7 +42,7 @@ export function stamp(ctx: CanvasRenderingContext2D, w: number, h: number) {
   ctx.textBaseline = "alphabetic";
   ctx.font = `${Math.round(u * 1.25)}px ${serif()}`;
   const x = pad + u * 2.2;
-  ctx.fillText("Made with Arcon", x, h - pad - u * 0.75);
+  ctx.fillText("Made with Arcon Studio", x, h - pad - u * 0.75);
   ctx.font = `${Math.round(u * 0.62)}px ${sans()}`;
   ctx.fillStyle = "rgba(14,26,43,0.6)";
   ctx.fillText(`${TAGLINE} · AI architect`, x, h - pad + u * 0.05);

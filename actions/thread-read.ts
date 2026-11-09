@@ -6,7 +6,7 @@ import { canSendForReview } from "../engine/project/review.ts";
 import { inPersonClient, lastApproval, listMessages } from "../engine/project/thread.ts";
 import { ownProject, PROJECT_ERRORS } from "../server/lib/projects.js";
 
-// The project thread as Arcon's thread screen reads it: notes and events, the review state, and a change waiting
+// The project thread as Studio's thread screen reads it: notes and events, the review state, and a change waiting
 // on an approved design. The architect posts, sends for review and records the client's answer.
 export default defineAction({
   description: "Read a project's thread: notes, events, whether it can go to the client for review, and any change waiting on an approved design.",

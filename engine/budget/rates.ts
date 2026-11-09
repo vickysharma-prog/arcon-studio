@@ -1,6 +1,6 @@
 import type { Tier } from "./costs.ts";
 
-// Renovation and building rates for each market Arcon prices, for each quality tier, in local currency,
+// Renovation and building rates for each market Arcon Studio prices, for each quality tier, in local currency,
 // researched October 2026 from published 2025-26 cost guides. Most guides publish budget, mid-range and
 // high-end bands: essential is the budget band, mid the mid-range band, premium the high-end band and luxury the
 // top of the published range (bespoke, imported, designer). Where no guide gave a figure, it is derived from the

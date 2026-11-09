@@ -1,4 +1,4 @@
-// The Arcon mark: sunflower seeds placed at the golden angle (phyllotaxis).
+// The Arcon Studio mark: sunflower seeds placed at the golden angle (phyllotaxis).
 // Seed n sits at angle n × 137.508° and radius c·√n, so the pattern packs evenly with no gaps.
 
 export const GOLDEN_ANGLE_DEG = 137.508;

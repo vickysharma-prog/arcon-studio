@@ -6,7 +6,7 @@ import { ChangeRow } from "../server/lib/shapes.js";
 
 export default defineAction({
   description: "List the project's Studio feed, newest first: the agent's proposals (pending, applied, rejected or stale) and the person's own edits and undos.",
-  schema: z.object({ id: z.string().min(1).describe("Arcon project id") }),
+  schema: z.object({ id: z.string().min(1).describe("Arcon Studio project id") }),
   outputSchema: z.object({ changes: z.array(ChangeRow) }),
   errors: defineActionErrors("not_signed_in"),
   http: { method: "GET" },

@@ -7,7 +7,7 @@ export function meta() {
   return [{ title: "Interview · Arcon Studio" }];
 }
 
-// Arcon's interview for one project, run by the architect with the client.
+// Studio's interview for one project, run by the architect with the client.
 export default function InterviewRoute() {
   const { id = "" } = useParams();
   return (

@@ -1,4 +1,4 @@
-// The languages the interview speaks: what Arcon says first, how the microphone listens, and which voice reads
+// The languages the interview speaks: what Arcon Studio says first, how the microphone listens, and which voice reads
 // replies aloud. The interviewer answers in whatever language the user writes in; this only sets the greeting
 // and the speech settings.
 
@@ -8,21 +8,21 @@ export const LANGS: { id: LangId; label: string; greeting: string; listen: strin
   {
     id: "en",
     label: "English",
-    greeting: "Hi, I'm Arcon. What are we designing together: a home, a hotel, an office, a café, a shop or a studio?",
+    greeting: "Hi, I'm Arcon Studio. What are we designing together: a home, a hotel, an office, a café, a shop or a studio?",
     listen: "en-IN",
     voice: "en",
   },
   {
     id: "hi",
     label: "हिंदी",
-    greeting: "नमस्ते, मैं Arcon हूँ। हम साथ में क्या डिज़ाइन कर रहे हैं: घर, होटल, ऑफ़िस, कैफ़े, दुकान या स्टूडियो?",
+    greeting: "नमस्ते, मैं Arcon Studio हूँ। हम साथ में क्या डिज़ाइन कर रहे हैं: घर, होटल, ऑफ़िस, कैफ़े, दुकान या स्टूडियो?",
     listen: "hi-IN",
     voice: "hi-IN",
   },
   {
     id: "hinglish",
     label: "Hinglish",
-    greeting: "Hi, main Arcon hoon. Aaj hum kya design karein: ghar, hotel, office, café, shop ya studio?",
+    greeting: "Hi, main Arcon Studio hoon. Aaj hum kya design karein: ghar, hotel, office, café, shop ya studio?",
     // Indian English recognition keeps Hinglish in Latin letters; a Hindi voice reads Hinglish naturally.
     listen: "en-IN",
     voice: "hi-IN",

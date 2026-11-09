@@ -466,7 +466,7 @@ function Ready({ title, onStart }: { title?: string | null; onStart: () => void 
       <h1 className="mt-3 font-serif text-5xl sm:text-6xl">
         <Decode text={`Ready to see ${title ?? "your space"}?`} />
       </h1>
-      <p className="mt-4 max-w-md text-lg text-ink-soft">Arcon turns everything you told it into a style, three plans and a walk through your space.</p>
+      <p className="mt-4 max-w-md text-lg text-ink-soft">Arcon Studio turns everything you told it into a style, three plans and a walk through your space.</p>
       <button onClick={onStart} className="mt-10 rounded-full bg-btn px-9 py-4 text-lg text-btn-ink transition hover:opacity-90">
         Design my space
       </button>

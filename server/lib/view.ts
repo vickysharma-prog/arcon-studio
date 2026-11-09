@@ -1,6 +1,6 @@
 import type { Project } from "../../engine/project/store.ts";
 
-// The project as Arcon's own screens read it (the shape its /api/projects/:id returned), for the screens ported into
+// The project as Studio's own screens read it (the shape its /api/projects/:id returned), for the screens ported into
 // Studio. The architect is always the owner here, every step is open, and the client is the person it's designed for.
 export function projectView(p: Project) {
   const { owner_id: _o, guest_id: _g, ...rest } = p;

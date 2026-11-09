@@ -69,7 +69,7 @@ export function LandingHeader() {
 
 const WORDS = ["drawn in minutes.", "walked in 3D.", "priced by room.", "ready to build."];
 
-// The first screen: what Arcon does in one line, the way in, and a plan that designs itself from taste.
+// The first screen: what Arcon Studio does in one line, the way in, and a plan that designs itself from taste.
 export function Hero() {
   const still = useReducedMotion();
   const [word, setWord] = useState(0);
@@ -120,7 +120,7 @@ export function Hero() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">
-            Sit with your client and run Arcon&apos;s interview together. Their taste becomes a style, three floor plans, a 3D walkthrough, a budget and a drawings pack, and an agent works beside you: it proposes, you approve.
+            Sit with your client and run Studio&apos;s interview together. Their taste becomes a style, three floor plans, a 3D walkthrough, a budget and a drawings pack, and an agent works beside you: it proposes, you approve.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-2.5">
             <a href="#judges" onClick={() => tick()} className="group flex items-center gap-2.5 rounded-full border border-brand/50 bg-brand/5 px-5 py-3.5 text-base text-brand backdrop-blur transition hover:-translate-y-0.5 hover:bg-brand/10 hover:shadow-[0_12px_36px_-14px_hsl(var(--brand))]">

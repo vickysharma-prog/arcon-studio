@@ -37,7 +37,7 @@ export function replayIntro() {
 /** A link home that replays the intro on the way. */
 export function HomeLink({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <Link href="/" aria-label="Arcon home" onClick={replayIntro} className={className}>
+    <Link href="/" aria-label="Arcon Studio home" onClick={replayIntro} className={className}>
       {children}
     </Link>
   );
@@ -129,7 +129,7 @@ export function Intro() {
             ))}
           </svg>
           <p className="mt-6 flex font-serif text-5xl leading-none">
-            {"Arcon Studio".split("").map((ch, i) => (
+            {"Arcon Studio Studio".split("").map((ch, i) => (
               <span key={i} className="intro-letter" style={{ animationDelay: `${900 + i * 70}ms` }}>
                 {ch}
               </span>

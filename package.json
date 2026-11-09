@@ -2,7 +2,7 @@
   "name": "arcon-studio",
   "displayName": "Arcon Studio",
   "private": true,
-  "description": "Workspace app for Arcon Studio.",
+  "description": "The architect's studio, with an agent that knows the client's taste: it proposes, the architect approves.",
   "type": "module",
   "scripts": {
     "migrate:production": "tsx scripts/migrate-production.ts",

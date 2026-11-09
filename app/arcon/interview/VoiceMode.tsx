@@ -8,11 +8,11 @@ export type VoiceState = "listening" | "thinking" | "speaking" | "idle";
 const SAYS: Record<VoiceState, string> = {
   listening: "Listening",
   thinking: "Thinking",
-  speaking: "Arcon is speaking",
+  speaking: "Arcon Studio is speaking",
   idle: "Tap the orb to talk",
 };
 
-// Talking to Arcon: the Arcon mark on its own, large, with nothing behind it. It breathes when idle, swells with
+// Talking to Arcon Studio: the Arcon Studio mark on its own, large, with nothing behind it. It breathes when idle, swells with
 // your voice while listening, turns while thinking and grows its seeds while speaking, with faint waves round it.
 // What you say appears live under it.
 export function VoiceMode({
@@ -35,7 +35,7 @@ export function VoiceMode({
   return (
     <motion.div
       role="dialog"
-      aria-label="Talking to Arcon"
+      aria-label="Talking to Arcon Studio"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -118,7 +118,7 @@ export function VoiceMode({
             </motion.p>
           ) : null}
         </AnimatePresence>
-        <p className="mt-3 text-xs text-ink-soft">Speak in English, हिंदी or Hinglish. Arcon answers in yours.</p>
+        <p className="mt-3 text-xs text-ink-soft">Speak in English, हिंदी or Hinglish. Arcon Studio answers in yours.</p>
       </div>
     </motion.div>
   );

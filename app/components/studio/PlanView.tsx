@@ -3,7 +3,7 @@ import { useId } from "react";
 import { areaText, extentOf, type Diff, type Space } from "@/lib/plan";
 import { cn } from "@/lib/utils";
 
-// One floor of an Arcon plan, drawn from the layout itself (metres), so Studio and Arcon never disagree about it.
+// One floor of an Arcon Studio plan, drawn from the layout itself (metres), so Studio and Arcon Studio never disagree about it.
 // Rooms are buttons when `onSelect` is given. With a `diff`, new rooms are green, changed ones blue, and rooms the
 // change removes are drawn as dashed outlines from `ghosts`.
 

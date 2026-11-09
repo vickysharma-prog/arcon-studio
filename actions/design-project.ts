@@ -9,12 +9,12 @@ import { briefOf } from "../server/lib/brief.js";
 
 const errors = defineActionErrors(...PROJECT_ERRORS, "incomplete", "does_not_fit");
 
-// Plan options from a finished interview, at once and without a model: Arcon's tested room program for this kind
-// of space, fitted to what the client said (bedrooms, a study, a guest room), laid out by Arcon's layout engine in
+// Plan options from a finished interview, at once and without a model: Studio's tested room program for this kind
+// of space, fitted to what the client said (bedrooms, a study, a guest room), laid out by Studio's layout engine in
 // two or three different ways. The agent can then write a better program with set-program.
 export default defineAction({
   description:
-    "Draw plan options for a project whose interview is done: Arcon's room program for the space, fitted to the interview, laid out two or three ways. Replaces any options not yet chosen.",
+    "Draw plan options for a project whose interview is done: Studio's room program for the space, fitted to the interview, laid out two or three ways. Replaces any options not yet chosen.",
   schema: z.object({ id: z.string().min(1).describe("Project id") }),
   outputSchema: z.object({ id: z.string(), options: z.array(z.object({ index: z.number(), name: z.string(), summary: z.string().nullable() })) }),
   errors,

@@ -49,7 +49,7 @@ const SAY = {
   retry: { en: "Try again", hi: "फिर से कोशिश करें", hinglish: "Phir try karo" },
 } satisfies Record<string, Record<LangId, string>>;
 
-// Arcon's interview, in Studio: the architect runs it with the client, in the room or on a call. One question at a
+// Studio's interview, in Studio: the architect runs it with the client, in the room or on a call. One question at a
 // time sits in the middle of the screen; each answer is a tap, a few typed words or a sentence spoken aloud, and the
 // next question appears at once, since nothing waits on a model. The three things the client loves are taken as
 // they name them. The plans are drawn after, on the project page.
@@ -781,7 +781,7 @@ function TasteLookup({ q, text, near, say, onAnswer }: { q: Question; text: stri
   );
 }
 
-// Arcon's mark, on its own: no circle or box behind it. Its seeds grow while Arcon works.
+// Studio's mark, on its own: no circle or box behind it. Its seeds grow while Arcon Studio works.
 function Avatar({ busy }: { busy: boolean }) {
   return <span className="mt-1 grid h-8 w-8 shrink-0 place-items-center">{busy ? <AnimatedMark size={28} /> : <Mark size={26} />}</span>;
 }
