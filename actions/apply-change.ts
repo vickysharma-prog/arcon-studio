@@ -1,51 +1,47 @@
 import { defineAction, defineActionErrors } from "@agent-native/core/action";
 import { z } from "zod";
-import { ARCON_ERRORS, arcon, ownerOf } from "../server/lib/arcon.js";
+
+import { editDesign } from "../engine/workspace/apply.ts";
 import { getOne, move, stalePending } from "../server/lib/changes.js";
+import { architectOf, failOutcome, ownProject, PROJECT_ERRORS, readBudget } from "../server/lib/projects.js";
 import { ChangeRow } from "../server/lib/shapes.js";
 
-type Applied = { note: string; version: number; request: { from: number; cost: string } | null };
+const errors = defineActionErrors(...PROJECT_ERRORS, "not_pending");
 
-const errors = defineActionErrors(...ARCON_ERRORS, "not_pending");
-
-// Applies a pending proposal to the Arcon design, once, and only if the design is still at the version the proposal
-// was worked out on. A person's click runs it; the agent can only ask, and the person approves each call.
+// Applies a pending proposal once, and only to the version of the design it was worked out on. A click in Studio
+// runs it; the agent can only ask, and the architect approves each call.
 export default defineAction({
   description:
-    "Apply a pending proposal to the Arcon design. Needs the person's approval. It applies only if the design hasn't changed since the proposal; otherwise it is marked stale and nothing is saved.",
+    "Apply a pending proposal to the design. Needs the architect's approval. It applies only if the design hasn't changed since the proposal; otherwise it is marked out of date and nothing is saved.",
   schema: z.object({ changeId: z.string().min(1).describe("Proposal id from propose-change or list-changes") }),
   outputSchema: z.object({ change: ChangeRow, message: z.string(), budget: z.string().nullable() }),
   errors,
   needsApproval: true,
   run: async ({ changeId }, ctx) => {
-    const owner = ownerOf(ctx);
-    const claimed = await move(owner, changeId, "pending", "applying");
-    if (!claimed) {
-      const now = await getOne(owner, changeId);
-      return errors.noWrite(now ? `This proposal is already ${now.status}.` : "No such proposal.", "not_pending", { statusCode: now ? 409 : 404 });
-    }
+    const architect = architectOf(ctx);
+    const found = await getOne(architect, changeId);
+    if (!found) return errors.noWrite("No such proposal.", "not_pending", { statusCode: 404 });
+    const { project } = await ownProject(found.projectId, ctx);
+    const claimed = await move(architect, changeId, "pending", "applying");
+    if (!claimed) return errors.noWrite(`This proposal is already ${found.status}.`, "not_pending", { statusCode: 409 });
     if (claimed.kind !== "change" || !claimed.change) {
-      await move(owner, changeId, "applying", "failed", { note: "Only proposed changes can be applied." });
+      await move(architect, changeId, "applying", "failed", { note: "Only proposed changes can be applied." });
       return errors.fail("Only proposed changes can be applied.", "not_pending", { statusCode: 409 });
     }
-    try {
-      const out = await arcon<Applied>(`/projects/${encodeURIComponent(claimed.projectId)}/change`, {
-        method: "POST",
-        body: { change: claimed.change, baseVersion: claimed.baseVersion, by: "agent" },
-      });
-      const note = out.request ? `${out.note} Sent to the owner to approve (${out.request.cost}).` : out.note;
-      const done = (await move(owner, changeId, "applying", "applied", { resultVersion: out.version, note }))!;
-      await stalePending(owner, claimed.projectId);
-      // The cost after the change, so whoever approved hears the new figure, not the one read before it.
-      const budget = await arcon<{ text: string }>(`/projects/${encodeURIComponent(claimed.projectId)}/budget`).catch(() => null);
-      return { change: done, message: budget ? `${note} Cost to build is now ${budget.text}.` : note, budget: budget?.text ?? null };
-    } catch (e) {
-      const code = (e as { errorCode?: string }).errorCode;
-      // Arcon didn't answer: the proposal goes back to waiting, so approving again is safe.
-      const to = code === "arcon_unavailable" || code === "connection_unavailable" ? "pending" : code === "stale" ? "stale" : "failed";
-      await move(owner, changeId, "applying", to, { note: e instanceof Error ? e.message : null });
-      throw e;
+    const actor = { id: architect, name: `${architect.split("@")[0]}'s agent` };
+    const out = await editDesign({ project, role: "owner" }, { change: claimed.change }, actor, claimed.baseVersion).catch((e: unknown) => ({
+      status: 500,
+      body: { error: e instanceof Error ? e.message : "That didn't save.", code: "bad_change" } as Record<string, unknown>,
+    }));
+    if (out.status !== 200) {
+      await move(architect, changeId, "applying", out.body.code === "stale" ? "stale" : "failed", { note: String(out.body.error ?? "") });
+      failOutcome(out);
     }
+    const { note, version } = out.body as { note: string; version: number };
+    const done = (await move(architect, changeId, "applying", "applied", { resultVersion: version, note }))!;
+    await stalePending(architect, project.id);
+    // The cost after the change, so whoever approved hears the new figure, not the one read before it.
+    const budget = readBudget((await ownProject(project.id, ctx)).project)?.text ?? null;
+    return { change: done, message: budget ? `${note} Cost to build is now ${budget}.` : note, budget };
   },
 });
-

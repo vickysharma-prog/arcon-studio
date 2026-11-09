@@ -52,11 +52,26 @@ export const ProjectCard = z.object({
   id: z.string(),
   title: z.string(),
   spaceType: z.string().nullable(),
+  /** interview, designing, ready, review, approved, building or done. */
   status: z.string(),
-  role: z.string(),
   location: z.string().nullable(),
+  /** Plan options have been drawn. */
+  hasOptions: z.boolean(),
+  /** One of them is chosen. */
   hasPlan: z.boolean(),
+  clientId: z.string().nullable(),
+  clientName: z.string().nullable(),
   updatedAt: z.string(),
+});
+
+export const Client = z.object({
+  id: z.string(),
+  name: z.string(),
+  contactEmail: z.string().nullable(),
+  phone: z.string().nullable(),
+  notes: z.string().nullable(),
+  createdAt: z.string(),
+  projects: z.number(),
 });
 
 export const Reasons = z.object({

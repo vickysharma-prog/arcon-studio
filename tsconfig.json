@@ -15,6 +15,18 @@
       ],
       "@shared/*": [
         "./shared/*"
+      ],
+      "@engine/*": [
+        "./engine/*"
+      ],
+      "@arcon/*": [
+        "./app/arcon/*"
+      ],
+      "next/link": [
+        "./app/arcon/shims/link.tsx"
+      ],
+      "next/navigation": [
+        "./app/arcon/shims/navigation.ts"
       ]
     },
     "noUncheckedIndexedAccess": false,

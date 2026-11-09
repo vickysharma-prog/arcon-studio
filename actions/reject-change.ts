@@ -1,10 +1,10 @@
 import { defineAction, defineActionErrors } from "@agent-native/core/action";
 import { z } from "zod";
-import { ownerOf } from "../server/lib/arcon.js";
+import { architectOf as ownerOf } from "../server/lib/projects.js";
 import { getOne, move } from "../server/lib/changes.js";
 import { ChangeRow } from "../server/lib/shapes.js";
 
-const errors = defineActionErrors("not_connected", "not_pending");
+const errors = defineActionErrors("not_signed_in", "not_pending");
 
 export default defineAction({
   description: "Reject a pending proposal. The design stays as it is. Use when the person says no to a proposal.",

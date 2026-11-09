@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 import { BudgetCard } from "@/components/studio/BudgetCard";
 import { failureText, Feed, Proposals } from "@/components/studio/Changes";
-import { ConnectArcon } from "@/components/studio/ConnectArcon";
+import { PlanStage } from "@/components/studio/PlanStage";
 import { PlanView } from "@/components/studio/PlanView";
 import { RoomControls } from "@/components/studio/RoomControls";
 import { Button } from "@/components/ui/button";
@@ -22,16 +22,36 @@ export function meta() {
 
 const codeOf = (e: unknown) => (e as { errorCode?: string } | null)?.errorCode;
 
+// A project page follows the project: the interview to do, then plan options to choose from, then the workspace.
 export default function ProjectRoute() {
   const { id = "" } = useParams();
+  const project = useActionQuery("get-project", { id });
+  useSetPageTitle(project.data?.title ?? null);
+  if (project.isLoading) return <Loading />;
+  if (project.error || !project.data)
+    return (
+      <div className="mx-auto max-w-lg px-4 py-12 text-center">
+        <p className="text-lg font-semibold">Couldn&apos;t open this project</p>
+        <p className="mt-2 text-sm text-muted-foreground">{project.error?.message}</p>
+        <Button asChild variant="outline" className="mt-4">
+          <Link to="/projects">
+            <IconArrowLeft aria-hidden />
+            Your studio
+          </Link>
+        </Button>
+      </div>
+    );
+  if (project.data.chosenOption === null) return <PlanStage project={project.data} />;
+  return <Workspace id={id} />;
+}
+
+function Workspace({ id }: { id: string }) {
   const design = useActionQuery("get-design", { id });
   const budget = useActionQuery("get-budget", { id }, { enabled: design.isSuccess });
   const changes = useActionQuery("list-changes", { id });
   const [floor, setFloor] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [shown, setShown] = useState<string | null>(null);
-  useSetPageTitle(design.data?.title ?? null);
-
   const undo = useActionMutation("undo-change", {
     onSuccess: (r) => toast.success(r.message),
     onError: (e) => toast.error(failureText(e)),
@@ -46,12 +66,6 @@ export default function ProjectRoute() {
   if (design.isLoading) return <Loading />;
   if (design.error || !d) {
     const code = codeOf(design.error);
-    if (code === "not_connected" || code === "connection_unavailable")
-      return (
-        <div className="px-4 py-8">
-          <ConnectArcon arconUrl="https://arcon-ten.vercel.app" unavailable={code === "connection_unavailable"} />
-        </div>
-      );
     return (
       <div className="mx-auto max-w-lg px-4 py-12 text-center">
         <p className="text-lg font-semibold">{code === "no_plan" ? "This project has no plan chosen yet" : "Couldn't open this project"}</p>
@@ -59,7 +73,7 @@ export default function ProjectRoute() {
         <Button asChild variant="outline" className="mt-4">
           <Link to="/projects">
             <IconArrowLeft aria-hidden />
-            Your projects
+            Your studio
           </Link>
         </Button>
       </div>
@@ -100,10 +114,10 @@ export default function ProjectRoute() {
             </Button>
           ) : null}
           <Button variant="outline" size="sm" asChild>
-            <a href={d.url} target="_blank" rel="noreferrer">
+            <Link to={d.url}>
               <IconCube aria-hidden />
               Open in 3D
-            </a>
+            </Link>
           </Button>
           <Button
             size="sm"

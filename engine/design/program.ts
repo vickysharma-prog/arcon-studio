@@ -25,7 +25,7 @@ const LooseRoom = z.object({
   floor: z.number().describe("0 for the ground floor, 1 for upstairs"),
 });
 const LooseDraft = z.object({ rooms: z.array(LooseRoom) });
-const Room = LooseRoom.extend({ area: z.number().min(2).max(400), floor: z.number().min(0).max(1) });
+export const Room = LooseRoom.extend({ area: z.number().min(2).max(400), floor: z.number().min(0).max(1) });
 const Draft = z.object({ rooms: z.array(Room).min(1).max(30) });
 
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "room";
