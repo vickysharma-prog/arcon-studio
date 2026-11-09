@@ -5,9 +5,8 @@ import { missingForDesign } from "../engine/interview/logic.ts";
 import { picksOf, problems, toProject, type Answers } from "../engine/interview/script.ts";
 import { postEvent } from "../engine/project/thread.ts";
 import { updateProject } from "../engine/project/store.ts";
-import { profileFor } from "../engine/qloo/profile.ts";
 import { ownProject, PROJECT_ERRORS } from "../server/lib/projects.js";
-import { signalsOf } from "../server/lib/taste.js";
+import { choiceSignals, profileOf, signalsOf } from "../server/lib/taste.js";
 
 const errors = defineActionErrors(...PROJECT_ERRORS, "not_waiting", "incomplete");
 
@@ -29,8 +28,9 @@ export default defineAction({
     const answers = raw as Answers;
     const wrong = problems(answers);
     if (wrong.length) return errors.noWrite(`Some answers are missing: ${wrong.join("; ")}.`, "incomplete", { statusCode: 400 });
-    const signals = signalsOf(picksOf(answers));
-    const taste = await profileFor(signals);
+    // The client's own look and feel set the style; the three things they love are kept as they named them.
+    const signals = [...choiceSignals(answers.look, answers.feel), ...signalsOf(picksOf(answers))];
+    const taste = profileOf(answers.look, answers.feel);
     const fields = toProject(answers, lang);
     const p = await updateProject(id, { ...fields, title: project.title ?? fields.title, status: "designing", taste_signals: signals, taste });
     const missing = missingForDesign(p);

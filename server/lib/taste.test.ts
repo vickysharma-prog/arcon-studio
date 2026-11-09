@@ -25,3 +25,17 @@ describe("signalsOf", () => {
   });
   it("slugs any script", () => expect(slug("दिल्ली Haat!")).toBe("दिल्ली-haat"));
 });
+
+describe("profileOf", () => {
+  it("styles each client in the look they chose", async () => {
+    const { styleOf } = await import("../../engine/three/materials.ts");
+    const { profileOf: profile, LOOKS: looks } = await import("./taste");
+    for (const look of Object.keys(looks)) expect(styleOf(profile(look, []), "").style).toBe(look);
+  });
+  it("credits only the choices themselves, and skips unknown ones", async () => {
+    const { profileOf: profile, choiceSignals } = await import("./taste");
+    const p = profile("boho", ["green", "nonsense"]);
+    expect(new Set(p.tags.flatMap((t) => t.sources.map((s) => s.name)))).toEqual(new Set(["Boho look", "Green and natural"]));
+    expect(choiceSignals("nope", ["airy"]).map((s) => s.name)).toEqual(["Calm and airy"]);
+  });
+});

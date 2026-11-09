@@ -1,5 +1,5 @@
 import { callAction } from "@agent-native/core/client/hooks";
-import { QUIZ_KEY } from "@engine/quiz/picks";
+import { QUIZ_KEY, STYLE_NAME } from "@engine/quiz/picks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -73,7 +73,14 @@ export function Interview({ projectId: target }: { projectId: string }) {
     }, 1400);
     return () => clearTimeout(go);
   }, [projectId, router]);
-  const [taste, setTaste] = useState<TasteView | null>(null);
+  // The style revealed at the end: the look the client chose, with the feel they asked for.
+  const taste = useMemo<TasteView | null>(() => {
+    const look = typeof answers.look === "string" ? STYLE_NAME[answers.look as keyof typeof STYLE_NAME] : undefined;
+    if (!look) return null;
+    const feel = Array.isArray(answers.feel) ? (answers.feel as string[]) : [];
+    const feelWords: Record<string, string> = { airy: "calm and airy", cozy: "warm and cozy", green: "green and natural", lively: "bold and lively" };
+    return { style: [], brands: [], count: 0, family: look, words: feel.filter((f) => f in feelWords).map((f) => ({ word: feelWords[f]!, from: null })) };
+  }, [answers.look, answers.feel]);
   // The tour's replay (/start?demo=1): Maya's answers play themselves, at 2x unless slowed to 1x; nothing is saved.
   const [replay, setReplay] = useState(false);
   const [speed, setSpeed] = useState(2);

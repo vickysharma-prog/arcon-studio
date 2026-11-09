@@ -327,13 +327,42 @@ export const QUESTIONS: Question[] = [
     ],
   },
 
-  // Then the style: three picks from pictures (or typed and matched in Qloo), after the interview's questions
+  // Studio: the look and the feel, chosen by the client, so every client's style is their own.
+  {
+    id: "look",
+    stage: 3,
+    kind: "choice",
+    lead: w("Now let's find your style.", "अब आपकी स्टाइल ढूँढते हैं।", "Ab aapka style dhoondte hain."),
+    ask: w("Which of these feels most like home?", "इनमें से कौन सा सबसे ज़्यादा घर जैसा लगता है?", "Inme se kaunsa sabse zyada ghar jaisa lagta hai?"),
+    choices: [
+      c("modern", "Modern: clean and sleek", "मॉडर्न: साफ़ और सलीकेदार", "Modern: clean aur sleek"),
+      c("scandi", "Scandinavian: light and calm", "स्कैंडिनेवियन: हल्का और शांत", "Scandinavian: halka aur shaant"),
+      c("midcentury", "Mid-century: warm wood, a little retro", "मिड-सेंचुरी: गर्म लकड़ी, थोड़ा रेट्रो", "Mid-century: garam lakdi, thoda retro"),
+      c("industrial", "Industrial: raw and urban", "इंडस्ट्रियल: रॉ और शहरी", "Industrial: raw aur urban"),
+      c("boho", "Boho: layered and colourful", "बोहो: रंगीन और परतदार", "Boho: rangeen aur layered"),
+      c("classic", "Classic: elegant and timeless", "क्लासिक: शानदार और सदाबहार", "Classic: elegant aur timeless"),
+    ],
+  },
+  {
+    id: "feel",
+    stage: 3,
+    kind: "multi",
+    ask: w("And how should it feel?", "और कैसा महसूस होना चाहिए?", "Aur kaisa feel hona chahiye?"),
+    choices: [
+      c("airy", "Calm and airy", "शांत और खुला", "Shaant aur khula"),
+      c("cozy", "Warm and cozy", "गर्म और आरामदायक", "Garam aur cozy"),
+      c("green", "Green and natural", "हरा-भरा और प्राकृतिक", "Hara-bhara aur natural"),
+      c("lively", "Bold and lively", "रंगीन और जीवंत", "Rangeen aur lively"),
+    ],
+  },
+
+  // Then three things they love, typed as they name them
   {
     id: "place",
     stage: 3,
     kind: "taste",
     slot: "place",
-    lead: w("Now let's find your style. Three quick picks.", "अब आपकी स्टाइल ढूँढते हैं। बस तीन चुनाव।", "Ab aapka style dhoondte hain. Bas teen picks."),
+    lead: w("Now three things you love.", "अब तीन चीज़ें जो आपको पसंद हैं।", "Ab teen cheezein jo aapko pasand hain."),
     ask: w("Now the fun part. A hotel, café or restaurant you never wanted to leave?", "अब मज़ेदार हिस्सा। कोई होटल, कैफ़े या रेस्टोरेंट जहाँ से जाने का मन न हुआ?", "Ab mazedaar part. Koi hotel, café ya restaurant jahan se jaane ka mann nahi hua?"),
     hint: w("e.g. Ace Hotel New York", "जैसे ताज महल पैलेस मुंबई", "Jaise Ace Hotel New York"),
   },
@@ -441,7 +470,13 @@ export function toProject(a: Answers, lang: LangId) {
     units: ("typical" in size ? usesFeet(city) : shell.unit !== "m") ? "imperial" : "metric",
   };
 
-  const interview: Record<string, unknown> = { project: { newBuild: a.build === "new" }, budget: { level: a.budget }, scripted: true, language: lang };
+  const interview: Record<string, unknown> = {
+    project: { newBuild: a.build === "new" },
+    budget: { level: a.budget },
+    style: { look: typeof a.look === "string" ? a.look : null, feel: Array.isArray(a.feel) ? a.feel : [] },
+    scripted: true,
+    language: lang,
+  };
   const list = (id: string) => (Array.isArray(a[id]) ? (a[id] as string[]) : []);
 
   if (HOME_TYPES.has(spaceType)) {

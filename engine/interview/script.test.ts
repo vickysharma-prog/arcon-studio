@@ -131,7 +131,9 @@ test("the style is three picks after the interview's questions: a place, a brand
   // Every other question, budget included, comes before the first pick.
   const order = QUESTIONS.map((q) => q.id);
   assert.ok(QUESTIONS.filter((q) => q.kind !== "taste").every((q) => order.indexOf(q.id) < order.indexOf("place")));
-  assert.match(QUESTIONS.find((q) => q.id === "place")!.lead!.en, /find your style/);
+  // Studio: the client's own look comes first and opens the style part; the three loves follow.
+  assert.match(QUESTIONS.find((q) => q.id === "look")!.lead!.en, /find your style/);
+  assert.ok(order.indexOf("look") < order.indexOf("feel") && order.indexOf("feel") < order.indexOf("place"));
 });
 
 test("a typical size takes its units from the city: feet in the US, metres elsewhere", () => {
