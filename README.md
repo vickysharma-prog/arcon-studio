@@ -134,7 +134,7 @@ pnpm dev                # http://localhost:8080
 pnpm test               # app, store and engine tests
 ```
 
-Connect the agent from the chat with **Use Builder.io**, or set a provider key (for example `ANTHROPIC_API_KEY`) in `.env`.
+Connect the agent from the chat with **Use Builder.io**, or set a model provider key (for example `OPENAI_API_KEY` or `OPENROUTER_API_KEY`) in `.env`.
 
 ## Licence
 
