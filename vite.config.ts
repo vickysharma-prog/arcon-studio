@@ -15,6 +15,7 @@ export default defineConfig({
       { find: /^@arcon\/(.*)$/, replacement: path.resolve(__dirname, "app/arcon/$1") },
       { find: /^next\/link$/, replacement: path.resolve(__dirname, "app/arcon/shims/link.tsx") },
       { find: /^next\/navigation$/, replacement: path.resolve(__dirname, "app/arcon/shims/navigation.ts") },
+      { find: /^next\/dynamic$/, replacement: path.resolve(__dirname, "app/arcon/shims/dynamic.tsx") },
     ],
   },
   optimizeDeps: {

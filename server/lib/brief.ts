@@ -135,9 +135,19 @@ const FEEL_PLANTS: Partial<Record<FeelId, { name: string; where: string; why: st
   green: { name: "Areca palm", where: "near the garden doors", why: "the client asked for a green, natural home" },
 };
 
-/** The brief for a client's look and feel. Null when they chose no look. */
-export function briefOf(look: unknown, feel: unknown, client: string | null): Brief | null {
-  if (typeof look !== "string" || !(look in LOOKS)) return null;
+/** The brief for a client's look and feel. A client who chose no look gets a quiet modern start that credits nothing. */
+export function briefOf(look: unknown, feel: unknown, client: string | null): Brief {
+  if (typeof look !== "string" || !(look in LOOKS)) {
+    const base = BASES.modern;
+    return {
+      name: "A Quiet Start",
+      summary: `${base.summary} ${client ? `${client.split(/\s+/)[0]} hasn't` : "The client hasn't"} picked a look yet, so this is a neutral start to shape together.`,
+      palette: base.palette.map((c) => ({ ...c, from: [] })),
+      materials: base.materials.map((m) => ({ ...m, from: [] })),
+      lighting: { ...base.lighting, from: [] },
+      plants: base.plants,
+    };
+  }
   const id = look as LookId;
   const feels = (Array.isArray(feel) ? feel : []).filter((f): f is FeelId => typeof f === "string" && f in FEELS);
   const lookCredit = `${LOOKS[id].name} look`;

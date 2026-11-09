@@ -21,15 +21,23 @@ export default defineAction({
   run: async ({ id }, ctx) => {
     const { project: p } = await ownProject(id, ctx);
     if (p.status === "interview") return errors.noWrite("Finish the interview first.", "incomplete", { statusCode: 409 });
-    if (p.chosen_option !== null) return errors.noWrite("A plan is already chosen; change it in the design instead.", "incomplete", { statusCode: 409 });
+    // The brief from the client's own look and feel, unless the agent already wrote one.
+    const style = (p.interview.style ?? {}) as { look?: unknown; feel?: unknown };
+    const brief = p.brief ?? briefOf(style.look, style.feel, p.designed_for ?? null);
+    const summary = (options: typeof p.options) => (options ?? []).map((o, index) => ({ index, name: o.concept?.name ?? `Plan ${index + 1}`, summary: o.concept?.summary ?? null }));
+    if (p.chosen_option !== null) {
+      // A plan chosen before the brief existed only needs its brief; the plans stay as they are.
+      if (!p.brief && brief) {
+        await updateProject(id, { brief });
+        return { id, options: summary(p.options) };
+      }
+      return errors.noWrite("A plan is already chosen; change it in the design instead.", "incomplete", { statusCode: 409 });
+    }
     const missing = missingForDesign(p);
     if (missing.length) return errors.noWrite(`Still needed: ${missing.join(", ")}.`, "incomplete", { statusCode: 400 });
     const out = draftPlans(p);
     if ("error" in out) return errors.noWrite(out.error, "does_not_fit", { statusCode: 422 });
-    // The brief from the client's own look and feel, unless the agent already wrote one.
-    const style = (p.interview.style ?? {}) as { look?: unknown; feel?: unknown };
-    const brief = p.brief ?? briefOf(style.look, style.feel, p.designed_for ?? null);
     await updateProject(id, { program: out.program, options: out.options, ...(brief && !p.brief ? { brief } : {}) });
-    return { id, options: out.options.map((o, index) => ({ index, name: o.concept?.name ?? `Plan ${index + 1}`, summary: o.concept?.summary ?? null })) };
+    return { id, options: summary(out.options) };
   },
 });

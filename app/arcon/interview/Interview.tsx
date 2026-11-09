@@ -69,7 +69,7 @@ export function Interview({ projectId: target }: { projectId: string }) {
     if (!projectId) return;
     const go = setTimeout(() => {
       transition();
-      router.push(`/projects/${projectId}`);
+      router.push(`/projects/${projectId}?design=1`);
     }, 1400);
     return () => clearTimeout(go);
   }, [projectId, router]);
@@ -540,7 +540,7 @@ export function Interview({ projectId: target }: { projectId: string }) {
                     </div>
                   )}
                   {projectId && (
-                    <Link href={`/projects/${projectId}`} onClick={() => transition()} className="glow-btn mt-8 px-8 py-3.5 text-lg">
+                    <Link href={`/projects/${projectId}?design=1`} onClick={() => transition()} className="glow-btn mt-8 px-8 py-3.5 text-lg">
                       {say("see")}
                     </Link>
                   )}

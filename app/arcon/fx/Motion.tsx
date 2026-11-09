@@ -63,7 +63,7 @@ export function Ring({ value, size = 88, stroke = 7 }: { value: number; size?: n
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="hsl(var(--leaf))"
+          stroke="hsl(hsl(var(--leaf)))"
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={c}

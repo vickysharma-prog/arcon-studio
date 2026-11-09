@@ -18,5 +18,10 @@ describe("briefOf", () => {
     expect(b.summary).toMatch(/Priya chose a scandinavian look, calm and airy and green and natural/);
     expect(b.plants.some((x) => x.name === "Areca palm")).toBe(true);
   });
-  it("is null without a look", () => expect(briefOf(undefined, ["cozy"], null)).toBeNull());
+  it("starts neutral without a look, crediting nothing", () => {
+    const b = briefOf(undefined, ["cozy"], "Priya Mehta");
+    expect(Brief.safeParse(b).success).toBe(true);
+    expect([...b.palette, ...b.materials].every((x) => x.from.length === 0)).toBe(true);
+    expect(b.summary).toMatch(/Priya hasn't picked a look/);
+  });
 });

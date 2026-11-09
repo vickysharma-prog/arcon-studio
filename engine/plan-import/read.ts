@@ -1,4 +1,5 @@
-import { generateText, Output, type LanguageModel } from "ai";
+// "ai" loads only when a drawing is read, so the workspace screens that use programOf never pull it into the browser.
+import type { LanguageModel } from "ai";
 import { z } from "zod";
 import type { Layout, Program, SpaceType } from "../layout/schema.ts";
 import type { ReadPlan, ReadRoom } from "./snap.ts";
@@ -117,6 +118,7 @@ export async function readPlan(data: Uint8Array, mediaType: string, hints: Hints
 An earlier reading of this drawing had these problems:
 ${feedback}
 Look at the drawing again and fix them.` : readPrompt(hints);
+  const { generateText, Output } = await import("ai");
   const { output } = await generateText({
     model,
     output: Output.object({ schema: LooseRead }),

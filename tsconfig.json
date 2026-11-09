@@ -27,6 +27,9 @@
       ],
       "next/navigation": [
         "./app/arcon/shims/navigation.ts"
+      ],
+      "next/dynamic": [
+        "./app/arcon/shims/dynamic.tsx"
       ]
     },
     "noUncheckedIndexedAccess": false,
