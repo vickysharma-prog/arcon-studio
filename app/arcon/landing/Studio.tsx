@@ -80,7 +80,7 @@ export function AgentSide() {
 }
 
 const DEMO = [
-  "Sign in with Google: a full sample studio is set up in your account, six clients at every stage.",
+  "One click, nothing to sign up for: a full studio of your own opens, six clients at every stage.",
   "A guided run takes you through it end to end: style, plans, 3D, the agent's proposal, budget, review and drawings.",
   "Approve the agent's change, ask it your own question, then add a client of your own.",
 ];
@@ -101,7 +101,7 @@ export function Judges() {
               </li>
             ))}
           </ul>
-          <a href="/demo" onClick={() => transition()} className="glow-btn mt-8 px-7 py-3.5 text-base">
+          <a href="/judges" onClick={() => transition()} className="glow-btn mt-8 px-7 py-3.5 text-base">
             Start the demo
           </a>
           <p className="mt-6 text-sm text-ink-soft">The design engine comes from Arcon, which I built earlier; Arcon Studio and its agent workspace were built during the hackathon.</p>

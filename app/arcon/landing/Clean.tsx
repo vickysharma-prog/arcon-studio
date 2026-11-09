@@ -32,7 +32,7 @@ const PALETTE = [
 export function JudgesLink({ big = false }: { big?: boolean }) {
   return (
     <a
-      href="/demo"
+      href="/judges"
       onClick={() => transition()}
       className={`flex items-center gap-2 whitespace-nowrap rounded-full border border-brand/40 bg-paper/70 text-brand backdrop-blur transition hover:-translate-y-0.5 hover:bg-brand/10 ${big ? "px-6 py-3.5 text-base" : "h-10 px-4 text-sm"}`}
     >
@@ -532,7 +532,7 @@ export function CleanFooter() {
         <a href="/resources" className="hover:text-ink">
           Resources
         </a>
-        <a href="/demo" className="hover:text-ink">
+        <a href="/judges" className="hover:text-ink">
           For judges
         </a>
         <Link href="/projects" className="hover:text-ink">

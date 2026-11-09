@@ -29,7 +29,7 @@ export const STEPS: Step[] = [
   { path: (d) => `/projects/${d}?step=shop`, title: "The shopping list", text: "Every piece in the 3D, priced at her finish level, ready to send to Priya." },
   { path: (d) => `/projects/${d}?tab=thread`, title: "Review with the client", text: "Send the design for review, then record Priya's answer from your meeting. Every version stays on record." },
   { path: (d) => `/projects/${d}?step=drawings`, title: "Hand it over", text: "A drawings pack with dimensioned plans, elevations and schedules, as a PDF and a DXF for CAD." },
-  { path: () => "/projects", title: "Your turn", text: "Add your own client with New client and run the interview with them. Plans appear the moment it ends." },
+  { path: () => "/projects?new=1", title: "Your turn", text: "Add a client of your own and run the interview. Plans appear the moment it ends. Press Finish when you are done." },
 ];
 
 function read(): State | null {
@@ -71,7 +71,11 @@ export function Tour() {
     // one step per press: a press that lands while the page is still changing is not a second press
     if (Date.now() - last.current < 700) return;
     last.current = Date.now();
-    if (i >= STEPS.length) return write(null);
+    if (i >= STEPS.length) {
+      write(null);
+      navigate("/thanks");
+      return;
+    }
     const s = { ...state, step: Math.max(0, i) };
     write(s);
     navigate(STEPS[s.step]!.path(s.demo));
