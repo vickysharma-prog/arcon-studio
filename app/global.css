@@ -402,3 +402,44 @@ kbd {
 @media (prefers-reduced-motion: reduce) {
   .glow-btn, .glow-btn::after { transition: none; }
 }
+@keyframes arcon-scan {
+  from { transform: translateY(-10vh); }
+  to { transform: translateY(110vh); }
+}
+/* Landing intro. Waiting: a faint mark breathing over "Tap to enter". Playing: seeds grow out from the centre, the
+   name resolves, a scan line passes, then the page shows. Without scripts it fades out on its own at 9 seconds. */
+@keyframes intro-seed {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes intro-letter {
+  from { opacity: 0; transform: translateY(10px); filter: blur(8px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes intro-bar {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes intro-out {
+  to { opacity: 0; visibility: hidden; transform: scale(1.04); }
+}
+@keyframes intro-breathe {
+  50% { transform: scale(1.06); opacity: 0.32; }
+}
+.intro { animation: intro-out 0.6s cubic-bezier(0.7, 0, 0.3, 1) 9s forwards; }
+.intro.intro-live { animation: none; }
+.intro.intro-leaving { animation: intro-out 0.55s cubic-bezier(0.7, 0, 0.3, 1) forwards; }
+.intro-letter { display: inline-block; opacity: 0; }
+.intro-bar { width: 0; }
+.intro-waiting .intro-mark { opacity: 0.2; animation: intro-breathe 2.4s ease-in-out infinite; }
+.intro-gate { animation: intro-letter 0.6s ease-out 0.3s both; }
+.intro-play .intro-seed { opacity: 0; animation: intro-seed 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) forwards; }
+.intro-play .intro-letter { animation: intro-letter 0.6s ease-out forwards; }
+.intro-play .intro-bar { animation: intro-bar 1.9s cubic-bezier(0.6, 0, 0.2, 1) 0.2s forwards; }
+.intro-play .intro-mark { filter: drop-shadow(0 0 24px color-mix(in srgb, hsl(var(--brand)) 35%, transparent)); }
+.intro-scan { top: 0; animation: arcon-scan 2.2s linear; opacity: 0.9; }
+html.intro-seen .intro { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .intro { display: none; }
+}
+
