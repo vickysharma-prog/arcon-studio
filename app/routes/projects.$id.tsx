@@ -1,5 +1,5 @@
-import { sendToAgentChat } from "@agent-native/core/client/agent-chat";
 import { useActionMutation, useActionQuery } from "@agent-native/core/client/hooks";
+import { askAgent } from "@/lib/ask-agent";
 import { useSetPageTitle } from "@agent-native/toolkit/app-shell/header-actions";
 import { IconArrowBackUp, IconArrowLeft, IconCube, IconSparkles } from "@tabler/icons-react";
 import { useMemo, useState } from "react";
@@ -122,12 +122,7 @@ function Workspace({ id }: { id: string }) {
           <Button
             size="sm"
             onClick={() =>
-              sendToAgentChat({
-                message: "Look at this design with me. What would you change first, given how I want to live? Propose the best one.",
-                context: JSON.stringify({ projectId: d.id, version: d.version }),
-                submit: true,
-                openSidebar: true,
-              })
+              void askAgent("Look at this design with me. What would you change first, given how my client wants to live? Propose the best one.", { projectId: d.id, version: d.version })
             }
           >
             <IconSparkles aria-hidden />

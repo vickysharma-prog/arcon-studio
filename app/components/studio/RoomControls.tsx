@@ -1,5 +1,5 @@
-import { sendToAgentChat } from "@agent-native/core/client/agent-chat";
 import { useActionMutation } from "@agent-native/core/client/hooks";
+import { askAgent } from "@/lib/ask-agent";
 import { IconMinus, IconPencil, IconPlus, IconSparkles, IconTrash } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -34,12 +34,7 @@ export function RoomControls({ design, selected, onSelect }: { design: Design; s
   const busy = change.isPending;
 
   const ask = (message: string) =>
-    sendToAgentChat({
-      message,
-      context: JSON.stringify({ projectId: design.id, roomId: room?.id ?? null, version: design.version }),
-      submit: true,
-      openSidebar: true,
-    });
+    void askAgent(message, { projectId: design.id, roomId: room?.id ?? null, version: design.version });
 
   return (
     <div className="space-y-4">

@@ -1,5 +1,5 @@
-import { sendToAgentChat } from "@agent-native/core/client/agent-chat";
 import { useActionMutation } from "@agent-native/core/client/hooks";
+import { askAgent } from "@/lib/ask-agent";
 import { IconArrowLeft, IconArrowRight, IconCheck, IconPencil, IconSparkles } from "@tabler/icons-react";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router";
@@ -42,7 +42,7 @@ export function PlanStage({ project: p }: { project: Project }) {
     }
   }, [p.id, p.status, p.options.length, p.missing.length, draw]);
 
-  const ask = (message: string) => sendToAgentChat({ message, context: JSON.stringify({ projectId: p.id }), submit: true, openSidebar: true });
+  const ask = (message: string) => void askAgent(message, { projectId: p.id });
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6">
