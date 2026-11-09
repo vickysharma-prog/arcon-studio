@@ -18,6 +18,16 @@ export default defineConfig({
     ],
   },
   optimizeDeps: {
+    // The 3D model and Arcon's motion: pre-bundled, so their CommonJS pieces (scheduler) load in dev.
+    include: [
+      "scheduler",
+      "three",
+      "@react-three/fiber",
+      "@react-three/drei",
+      "@react-three/postprocessing",
+      "postprocessing",
+      "motion/react",
+    ],
     entries: [
       "app/entry.client.tsx",
       "app/root.tsx",
@@ -27,6 +37,17 @@ export default defineConfig({
     ],
   },
   plugins: [
+    // Agent-Native tags every JSX element with data-* attributes in dev so the agent can find its source. React Three
+    // Fiber's elements (<mesh>, <group>) aren't DOM and reject them, so the 3D files are left untagged: the tagger
+    // only touches a file whose code still matches the disk, and this marks the 3D ones first. Dev only.
+    {
+      name: "studio-3d-untagged",
+      enforce: "pre",
+      transform(code: string, id: string) {
+        if (!/[\\/]app[\\/]arcon[\\/]three[\\/][^?]+\.tsx($|\?)/.test(id)) return null;
+        return { code: `${code}\n// 3D: no DOM tagging\n`, map: null };
+      },
+    },
     ...reactRouterPlugins(),
     ...agentNativePlugins({
       ssrStubs: ["shiki"],
