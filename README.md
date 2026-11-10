@@ -10,7 +10,6 @@ Live at **[arcon-studio.vercel.app](https://arcon-studio.vercel.app)** · For ju
 - **Size:** 39 actions, each one a button, an agent tool and an endpoint for other agents · 6 tables · a design engine in 18 parts.
 - **Quality:** 382 tests (56 app and store tests on an in-memory Postgres, 326 design-engine tests), a seeded studio built through the real engine and tested, and the full judges' run checked in the browser on the live site.
 
-![The agent's proposal, drawn over the plan with its cost, waiting for the architect](docs/screens/proposal.webp)
 
 ---
 
