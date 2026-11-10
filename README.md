@@ -10,7 +10,45 @@ Live at **[arcon-studio.vercel.app](https://arcon-studio.vercel.app)** · For ju
 - **Size:** 39 actions, each one a button, an agent tool and an endpoint for other agents · 6 tables · a design engine in 18 parts.
 - **Quality:** 382 tests (56 app and store tests on an in-memory Postgres, 326 design-engine tests), a seeded studio built through the real engine and tested, and the full judges' run checked in the browser on the live site.
 
+![The agent's proposal, drawn over the plan with its cost, waiting for the architect](docs/screens/proposal.webp)
+
 ---
+
+## One meeting, one change
+
+Priya and her husband both work from home on Fridays. In the meeting, she says the study is too small for two desks.
+
+1. The architect types it into the chat beside the plan: *"Make the study big enough for two desks."*
+2. The agent calls `propose-change`. In **under half a second** the new plan is worked out against the current version and priced, and the proposal appears beside the plan with the agent's reason, in Priya's terms.
+3. **See on plan** draws it over the current design: what is new, what changed, what was removed.
+4. Priya says yes. The architect presses **Approve**. The design becomes version 3, and the 3D, the budget and the drawings follow.
+5. The agent could not have applied it alone: `apply-change` needs the architect's approval.
+
+That is the whole idea: the agent does the redrawing and repricing while the architect keeps talking to the client, and every decision stays with a person.
+
+| Her style, from her answers | Three plans, each with its reasons |
+|---|---|
+| ![Priya's style: Airy Scandinavian, every word tied to her answer](docs/screens/style.webp) | ![Three plans with what each does best](docs/screens/plans.webp) |
+| **Walk it in 3D, furnished in her style** | **A full studio, six clients at every stage** |
+| ![The living room in 3D](docs/screens/walk.webp) | ![The studio with the guided demo strip](docs/screens/studio.webp) |
+
+## Why Agent-Native, measured
+
+| | Without Agent-Native | In Arcon Studio |
+|---|---|---|
+| An agent that can change the design | A chatbot beside the app, or a second API kept in step with the screens | **The same 39 actions** the screens use: one definition is a button, an agent tool and an MCP/A2A endpoint |
+| A person in charge of changes | Custom confirm flows per feature | **`needsApproval`** on `apply-change` and on recording a client's answer |
+| The screen and the agent in step | Refresh, polling or a second state store | The project screen **reloads when the agent finishes a tool** |
+| The agent knowing what you are looking at | Copying ids into the chat | **The open project, version and room travel with every message** |
+| Other agents using the product | A separate public API | **MCP and A2A** from the same actions, with the same ownership checks |
+
+Measured on the live deployment:
+
+| What | Time |
+|---|---|
+| Three plans and the client's style, from a finished interview (`design-project`) | **0.41 s** |
+| A proposal: the change previewed against the current version, with its cost (`propose-change`) | **0.45 s** |
+| A judge's own studio: a new account and six projects built through the engine (`/judges`) | **1.6 s** |
 
 ## Try it
 
